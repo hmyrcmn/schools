@@ -1,0 +1,849 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2639
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset0 Menlo-Bold;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\csgray\c0;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11460\viewh9740\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs22 \cf2 \CocoaLigature0 Create a new project:\
+npx create-expo-app GuessingGame\
+npm start (npx expo start)\
+\
+Section Goals:\
+-Execute platform-specific code\
+-Adjust to different device sizes\
+-Build adaptive components\
+\
+Use two different devices for this course one with a bigger screen and one with a smaller screen\
+\
+
+\f1\b Setting Dynamic Widths\
+
+\f0\b0 \
+Title is too big\
+Update Title.js\
+\
+const styles = StyleSheet.create(\{\
+  title: \{\
+    fontFamily: 'open-sans-bold',\
+    fontSize: 24,\
+    color: 'white',\
+    textAlign: 'center',\
+    borderWidth: 2,\
+    borderColor: 'white',\
+    padding: 12,\
+
+\f1\b 	maxWidth: \'9280%\'92\
+
+\f0\b0   \},\
+\});\
+\
+80 percent according to the parent container\
+Smaller but not centered anymore\
+Go to GameScreen.js and make sure all containers all centered\
+\
+const styles = StyleSheet.create(\{\
+  screen: \{\
+    flex: 1,\
+    padding: 24,\
+
+\f1\b 	alignItems: \'91center\'92\
+
+\f0\b0   \},\
+  instructionText: \{\
+    marginBottom: 12,\
+  \},\
+  buttonsContainer: \{\
+    flexDirection: 'row',\
+  \},\
+  buttonContainer: \{\
+    flex: 1,\
+  \},\
+  listContainer: \{\
+    flex: 1,\
+    padding: 16,\
+  \},\
+\});\
+\
+We can add a default width for small screens\
+In Title.js\
+\
+const styles = StyleSheet.create(\{\
+  title: \{\
+    fontFamily: 'open-sans-bold',\
+    fontSize: 24,\
+    color: 'white',\
+    textAlign: 'center',\
+    borderWidth: 2,\
+    borderColor: 'white',\
+    padding: 12,\
+
+\f1\b 	
+\f0\b0 maxWidth: \'9280%\'92,\
+	
+\f1\b width: 300\
+
+\f0\b0   \},\
+\});\
+\
+
+\f1\b The Dimensions API
+\f0\b0 \
+\
+How can we use less padding and margin, font size for smaller screens?\
+Update NumberContainer\
+\
+import \{ View, Text, StyleSheet, 
+\f1\b Dimensions
+\f0\b0  \} from 'react-native';\
+\
+import Colors from '../../constants/colors';\
+\
+function NumberContainer(\{ children \}) \{\
+  return (\
+    <View style=\{styles.container\}>\
+      <Text style=\{styles.numberText\}>\{children\}</Text>\
+    </View>\
+  );\
+\}\
+\
+export default NumberContainer;\
+\
+
+\f1\b const deviceWidth = Dimensions.get(\'91window\'92).width;\
+
+\f0\b0 \
+const styles = StyleSheet.create(\{\
+  container: \{\
+    borderWidth: 4,\
+    borderColor: Colors.accent500,\
+
+\f1\b     padding: deviceWidth < 380 ? 12 : 24,\
+    margin: deviceWidth < 380 ? 12 : 24,
+\f0\b0 \
+    borderRadius: 8,\
+    alignItems: 'center',\
+    justifyContent: 'center',\
+  \},\
+  numberText: \{\
+    color: Colors.accent500,\
+
+\f1\b     fontSize: deviceWidth < 380 ? 28 : 36,\
+
+\f0\b0     fontFamily: 'open-sans-bold'\
+  \},\
+\});\
+\
+Update Card.js for the space between the Card and the number\
+\
+import \{ View, StyleSheet, 
+\f1\b Dimensions
+\f0\b0  \} from 'react-native';\
+\
+import Colors from '../../constants/colors';\
+\
+function Card(\{ children \}) \{\
+  return <View style=\{styles.card\}>\{children\}</View>;\
+\}\
+\
+export default Card;\
+\
+
+\f1\b const deviceWidth = Dimensions.get(\'91window\'92).width;\
+
+\f0\b0 \
+const styles = StyleSheet.create(\{\
+  card: \{\
+    justifyContent: 'center',\
+    alignItems: 'center',\
+
+\f1\b     marginTop: deviceWidth < 380 ? 18 : 36,\
+
+\f0\b0     marginHorizontal: 24,\
+    padding: 16,\
+    backgroundColor: Colors.primary800,\
+    borderRadius: 8,\
+    elevation: 4,\
+    shadowColor: 'black',\
+    shadowOffset: \{ width: 0, height: 2 \},\
+    shadowRadius: 6,\
+    shadowOpacity: 0.25,\
+  \},\
+\});\
+\
+
+\f1\b Adjusting Image Sizes with the Dimensions API\
+
+\f0\b0 \
+Update GameOver screen. The width and height of the image are set to 100%. The container of the image is imageContainer and the width and height are hardcoded as 300 pixels each (not a good idea).\
+\
+import \{ View, Image, Text, StyleSheet, 
+\f1\b Dimensions
+\f0\b0  \} from 'react-native';\
+\
+..\
+\
+export default GameOverScreen;\
+\
+
+\f1\b const deviceWidth = Dimensions.get(\'91window\'92).width;\
+
+\f0\b0 \
+const styles = StyleSheet.create(\{\
+  rootContainer: \{\
+    flex: 1,\
+    padding: 24,\
+    justifyContent: 'center',\
+    alignItems: 'center',\
+  \},\
+  imageContainer: \{\
+
+\f1\b     width: deviceWidth < 380 ? 150 : 300,\
+    height: deviceWidth < 380 ? 150 : 300,\
+    borderRadius: deviceWidth < 380 ? 75 : 150,
+\f0\b0 \
+    borderWidth: 3,\
+    borderColor: Colors.primary800,\
+    overflow: 'hidden',\
+    margin: 36,\
+  \},\
+  image: \{\
+    width: '100%',\
+    height: '100%',\
+  \},\
+  summaryText: \{\
+    fontFamily: 'open-sans',\
+    fontSize: 24,\
+    textAlign: 'center',\
+    marginBottom: 24,\
+  \},\
+\
+..\
+\
+
+\f1\b Understanding Screen Orientation Problems\
+
+\f0\b0 \
+In app.json, orientation is set to portrait. To unlock the orientation, set it as \'93
+\f1\b default
+\f0\b0 \'94\
+\
+Now flip the device the orientation changes. Make sure that auto rotation is on.\
+\
+
+\f1\b Setting Sizes Dynamically for Different Orientations\
+
+\f0\b0 \
+We can use dimensions API. Update StartGameScreen\
+\
+import \{ TextInput, View, StyleSheet, Alert, 
+\f1\b Dimensions
+\f0\b0  \} from 'react-native';\
+\
+..\
+\
+export default StartGameScreen;\
+\
+
+\f1\b const deviceHeight = Dimensions.get(\'91window\'92).height;\
+
+\f0\b0 \
+const styles = StyleSheet.create(\{\
+  rootContainer: \{\
+    flex: 1,\
+
+\f1\b     marginTop: deviceHeight < 380 ? 30 : 100,\
+
+\f0\b0     alignItems: 'center',\
+  \},\
+  numberInput: \{\
+    height: 50,\
+    width: 50,\
+    fontSize: 32,\
+    borderBottomColor: Colors.accent500,\
+    borderBottomWidth: 2,\
+    color: Colors.accent500,\
+    marginVertical: 8,\
+    fontWeight: 'bold',\
+    textAlign: 'center',\
+  \},\
+  buttonsContainer: \{\
+    flexDirection: 'row',\
+  \},\
+  buttonContainer: \{\
+    flex: 1,\
+  \},\
+\});\
+\
+The dimensions code and the style sheet code is executed once when the screen is rendered. If the user changes the orientation later, it will not be executed again.\
+The component code in the function is executed multiple times. Use the hook of the dimensions api instead. Hooks must be used in another hook or in a component function\
+\
+import \{ TextInput, View, StyleSheet, Alert, 
+\f1\b useWindowDimensions
+\f0\b0  \} from 'react-native';\
+\
+..\
+\
+function StartGameScreen(\{ onPickNumber \}) \{\
+  const [enteredNumber, setEnteredNumber] = useState('');\
+\
+  
+\f1\b const \{ width, height \} = useWindowDimensions();\
+//when the orientation changes, this function will be executed and the height and width are updated
+\f0\b0 \
+\
+  function numberInputHandler(enteredText) \{\
+    setEnteredNumber(enteredText);\
+  \}\
+\
+  function resetInputHandler() \{\
+    setEnteredNumber('');\
+  \}\
+\
+..\
+\
+  
+\f1\b const marginTopDistance = height < 380 ? 30 : 100;\
+//Write this code just before the JSX code
+\f0\b0 \
+\
+  return (\
+    <View style=\{
+\f1\b [
+\f0\b0 styles.rootContainer
+\f1\b , \{marginTop: marginTopDistance\}]
+\f0\b0 \}>\
+      <Title>Guess My Number</Title>\
+      <Card>\
+        <InstructionText>\
+          Enter a Number\
+        </InstructionText>\
+        <TextInput\
+          style=\{styles.numberInput\}\
+          maxLength=\{2\}\
+          keyboardType="number-pad"\
+          autoCapitalize="none"\
+          autoCorrect=\{false\}\
+          onChangeText=\{numberInputHandler\}\
+          value=\{enteredNumber\}\
+        />\
+        <View style=\{styles.buttonsContainer\}>\
+          <View style=\{styles.buttonContainer\}>\
+            <PrimaryButton onPress=\{resetInputHandler\}>Reset</PrimaryButton>\
+          </View>\
+          <View style=\{styles.buttonContainer\}>\
+            <PrimaryButton onPress=\{confirmInputHandler\}>Confirm</PrimaryButton>\
+          </View>\
+        </View>\
+      </Card>\
+    </View>\
+  );\
+\
+export default StartGameScreen;\
+\
+
+\f1\b //const deviceHeight = Dimensions.get(\'91window\'92).height;\
+
+\f0\b0 \
+const styles = StyleSheet.create(\{\
+  rootContainer: \{\
+    flex: 1,\
+
+\f1\b     //marginTop: deviceHeight < 380 ? 30 : 100,\
+
+\f0\b0     alignItems: 'center',\
+  \},\
+  numberInput: \{\
+    height: 50,\
+    width: 50,\
+    fontSize: 32,\
+    borderBottomColor: Colors.accent500,\
+    borderBottomWidth: 2,\
+    color: Colors.accent500,\
+    marginVertical: 8,\
+    fontWeight: 'bold',\
+    textAlign: 'center',\
+  \},\
+  buttonsContainer: \{\
+    flexDirection: 'row',\
+  \},\
+  buttonContainer: \{\
+    flex: 1,\
+  \},\
+\});\
+\
+
+\f1\b Managing Screen Content with KeyboardAvoidingView\
+
+\f0\b0 \
+When the keyboard is active it takes most of the space and we cannot access the screen\
+\
+Update StartGameScreen.js\
+\
+import \{ TextInput, View, StyleSheet, Alert, useWindowDimensions, 
+\f1\b KeyboardAvoidingView, ScrollView
+\f0\b0  \} from 'react-native';\
+\
+..\
+\
+  return (\
+
+\f1\b 	<ScrollView style=\{styles.screen\}>\
+	<KeyboardAvoidingView style=\{styles.screen\} behavior=\'93position\'94>\
+
+\f0\b0     <View style=\{[styles.rootContainer, \{marginTop: marginTopDistance\}]\}>\
+      <Title>Guess My Number</Title>\
+      <Card>\
+        <InstructionText>\
+          Enter a Number\
+        </InstructionText>\
+        <TextInput\
+          style=\{styles.numberInput\}\
+          maxLength=\{2\}\
+          keyboardType="number-pad"\
+          autoCapitalize="none"\
+          autoCorrect=\{false\}\
+          onChangeText=\{numberInputHandler\}\
+          value=\{enteredNumber\}\
+        />\
+        <View style=\{styles.buttonsContainer\}>\
+          <View style=\{styles.buttonContainer\}>\
+            <PrimaryButton onPress=\{resetInputHandler\}>Reset</PrimaryButton>\
+          </View>\
+          <View style=\{styles.buttonContainer\}>\
+            <PrimaryButton onPress=\{confirmInputHandler\}>Confirm</PrimaryButton>\
+          </View>\
+        </View>\
+      </Card>\
+    </View>\
+
+\f1\b 	</KeyboardAvoidingView>\
+	</ScrollView>
+\f0\b0 \
+  );\
+\
+..\
+\
+const styles = StyleSheet.create(\{\
+
+\f1\b   screen: \{\
+	flex: 1,\
+  \},
+\f0\b0 \
+  rootContainer: \{\
+    flex: 1,\
+    alignItems: 'center',\
+  \},\
+..\
+\
+
+\f1\b Improving the Landscape Mode UI\
+
+\f0\b0 \
+The next screen (GameScreen) does not look good now in the landscape mode.\
+\
+In GameScreen.js\
+\
+import \{ View, StyleSheet, Alert, FlatList, 
+\f1\b useWindowDimensions
+\f0\b0  \} from 'react-native';\
+\
+Call the useWindowDimensions function in the component function\
+\
+function GameScreen(\{ userNumber, onGameOver \}) \{\
+  const initialGuess = generateRandomBetween(1, 100, userNumber);\
+  const [currentGuess, setCurrentGuess] = useState(initialGuess);\
+  const [guessRounds, setGuessRounds] = useState([initialGuess]);\
+
+\f1\b   const \{ width, height \} = useWindowDimensions();\
+..\
+\
+
+\f0\b0 Just before the JSX code, cut and paste the number container and card codes as a dynamic content\
+\
+
+\f1\b   let content = (\
+	<>	//we use frangment tags because we have two root components (NumberContainer and Card) at this level\
+      <NumberContainer>\{currentGuess\}</NumberContainer>\
+      <Card>\
+        <InstructionText style=\{styles.instructionText\}>\
+          Higher or lower?\
+        </InstructionText>\
+        <View style=\{styles.buttonsContainer\}>\
+          <View style=\{styles.buttonContainer\}>\
+            <PrimaryButton onPress=\{nextGuessHandler.bind(this, 'lower')\}>\
+              <Ionicons name="md-remove" size=\{24\} color="white" />\
+            </PrimaryButton>\
+          </View>\
+          <View style=\{styles.buttonContainer\}>\
+            <PrimaryButton onPress=\{nextGuessHandler.bind(this, 'greater')\}>\
+              <Ionicons name="md-add" size=\{24\} color="white" />\
+            </PrimaryButton>\
+          </View>\
+        </View>\
+      </Card>\
+	</>\
+);\
+\
+  if (width > 500) \{\
+	content = (\
+		<>\
+			<View style=\{styles.buttonsContainerWide\}>\
+          	<View style=\{styles.buttonContainer\}>\
+            		<PrimaryButton onPress=\{nextGuessHandler.bind(this, 'lower')\}>\
+              		<Ionicons name="md-remove" size=\{24\} color="white" />\
+            		</PrimaryButton>\
+          		</View>\
+				<NumberContainer>\{currentGuess\}</NumberContainer>\
+          		<View style=\{styles.buttonContainer\}>\
+            		<PrimaryButton onPress=\{nextGuessHandler.bind(this, 'greater')\}>\
+              		<Ionicons name="md-add" size=\{24\} color="white" />\
+            		</PrimaryButton>\
+          		</View>\
+			</View>\
+		</>\
+	);\
+  \}
+\f0\b0 \
+\
+  return (\
+    <View style=\{styles.screen\}>\
+      <Title>Opponent's Guess</Title>\
+
+\f1\b 	  \{content\}\
+
+\f0\b0       <View style=\{styles.listContainer\}>\
+        \{/* \{guessRounds.map(guessRound => <Text key=\{guessRound\}>\{guessRound\}</Text>)\} */\}\
+        <FlatList\
+          data=\{guessRounds\}\
+          renderItem=\{(itemData) => (\
+            <GuessLogItem\
+              roundNumber=\{guessRoundsListLength - itemData.index\}\
+              guess=\{itemData.item\}\
+            />\
+          )\}\
+          keyExtractor=\{(item) => item\}\
+        />\
+      </View>\
+    </View>\
+  );\
+\
+..\
+\
+const styles = StyleSheet.create(\{\
+..\
+  buttonsContainer: \{\
+    flexDirection: 'row',\
+  \},\
+  buttonContainer: \{\
+    flex: 1,\
+  \},\
+  
+\f1\b buttonsContainerWide: \{\
+	flexDirection: \'91row\'92,\
+	alignItems: \'91center\'92\
+  \},
+\f0\b0 \
+  listContainer: \{\
+    flex: 1,\
+    padding: 16,\
+  \},\
+\});\
+\
+
+\f1\b Further Improvements with useWindowDimensions\
+
+\f0\b0 \
+Shrink the image in the mage over screen and access the new gane button\
+We get the device width dynamically but it does not work well in the landscape mode\
+In GameOverScreen.js\
+\
+import \{ View, Image, Text, StyleSheet, 
+\f1\b useWindowDimensions
+\f0\b0  \} from 'react-native';\
+\
+..\
+\
+export default GameOverScreen;\
+\
+
+\f1\b //const deviceWidth = Dimensions.get(\'91window\'92).width;\
+
+\f0\b0 \
+const styles = StyleSheet.create(\{\
+  rootContainer: \{\
+    flex: 1,\
+    padding: 24,\
+    justifyContent: 'center',\
+    alignItems: 'center',\
+  \},\
+  imageContainer: \{\
+
+\f1\b     //width: deviceWidth < 380 ? 150 : 300,\
+    //height: deviceWidth < 380 ? 150 : 300,\
+    //borderRadius: deviceWidth < 380 ? 75 : 150,
+\f0\b0 \
+    borderWidth: 3,\
+    borderColor: Colors.primary800,\
+    overflow: 'hidden',\
+    margin: 36,\
+  \},\
+  image: \{\
+    width: '100%',\
+    height: '100%',\
+  \},\
+  summaryText: \{\
+    fontFamily: 'open-sans',\
+    fontSize: 24,\
+    textAlign: 'center',\
+    marginBottom: 24,\
+  \},\
+\
+Get the screen size dynamically in the component function\
+\
+function GameOverScreen(\{ roundsNumber, userNumber, onStartNewGame \}) \{\
+\
+  
+\f1\b const \{ width, height \} = useWindowDimensions();\
+
+\f0\b0 \
+
+\f1\b   let imageSize = 300;\
+\
+  if (width < 380) \{\
+	imageSize = 150;\
+  \}\
+\
+  if (height < 400) \{\
+	imageSize = 80;\
+  \}\
+\
+  const imageStyle = \{\
+	width: imageSize,\
+	height: imageSize\
+	borderRadius: imageSize / 2\
+  \};\
+
+\f0\b0 \
+  return (\
+    <View style=\{styles.rootContainer\}>\
+      <Title>GAME OVER!</Title>\
+      <View style=\{
+\f1\b [
+\f0\b0 styles.imageContainer
+\f1\b ,
+\f0\b0  
+\f1\b imageStyle]
+\f0\b0 \}>\
+        <Image\
+          style=\{styles.image\}\
+          source=\{require('../assets/images/success.png')\}\
+        />\
+      </View>\
+      <Text style=\{styles.summaryText\}>\
+        Your phone needed <Text style=\{styles.highlight\}>\{roundsNumber\}</Text>\{' '\}\
+        rounds to guess the number\{' '\}\
+        <Text style=\{styles.highlight\}>\{userNumber\}</Text>.\
+      </Text>\
+      <PrimaryButton onPress=\{onStartNewGame\}>Start New Game</PrimaryButton>\
+    </View>\
+  );\
+\}\
+\
+Make it scrollable. Not needed here but it can be useful on certain devices.\
+\
+import \{ View, Image, Text, 
+\f1\b ScrollView
+\f0\b0 , StyleSheet, useWindowDimensions \} from 'react-native';\
+\
+..\
+\
+  return (\
+
+\f1\b   <ScrollView style=\{styles.screen\}>\
+
+\f0\b0     <View style=\{styles.rootContainer\}>\
+      <Title>GAME OVER!</Title>\
+      <View style=\{
+\f1\b [
+\f0\b0 styles.imageContainer
+\f1\b ,
+\f0\b0  
+\f1\b imageStyle]
+\f0\b0 \}>\
+        <Image\
+          style=\{styles.image\}\
+          source=\{require('../assets/images/success.png')\}\
+        />\
+      </View>\
+      <Text style=\{styles.summaryText\}>\
+        Your phone needed <Text style=\{styles.highlight\}>\{roundsNumber\}</Text>\{' '\}\
+        rounds to guess the number\{' '\}\
+        <Text style=\{styles.highlight\}>\{userNumber\}</Text>.\
+      </Text>\
+      <PrimaryButton onPress=\{onStartNewGame\}>Start New Game</PrimaryButton>\
+    </View>\
+
+\f1\b   </ScrollView>
+\f0\b0 \
+  );\
+\
+..\
+\
+\
+const styles = StyleSheet.create(\{\
+
+\f1\b   screen: \{\
+	flex: 1\
+  \},
+\f0\b0 \
+  rootContainer: \{\
+    flex: 1,\
+    padding: 24,\
+    justifyContent: 'center',\
+    alignItems: 'center',\
+  \},\
+\
+\
+
+\f1\b Writing Platform-specific Code with the Platform API\
+
+\f0\b0 \
+Get rid of the border of the title on iOS\
+\
+In Title.js\
+\
+import \{ Text, StyleSheet
+\f1\b , Platform
+\f0\b0  \} from 'react-native';\
+\
+Unlike screen sie, platform is always same during the app is running. We can write the dynamic code anywhere in Title.js\
+\
+const styles = StyleSheet.create(\{\
+  title: \{\
+    fontFamily: 'open-sans-bold',\
+    fontSize: 24,\
+    color: 'white',\
+    textAlign: 'center',\
+    borderWidth: 
+\f1\b Platform.OS === \'91android\'92 ? 2 : 0,
+\f0\b0 \
+    borderColor: 'white',\
+    padding: 12,\
+
+\f1\b 	
+\f0\b0 maxWidth: \'9280%\'92,\
+	width: 300\
+  \},\
+\});\
+\
+Another way of doing this\
+\
+const styles = StyleSheet.create(\{\
+  title: \{\
+    fontFamily: 'open-sans-bold',\
+    fontSize: 24,\
+    color: 'white',\
+    textAlign: 'center',\
+    //borderWidth: Platform.OS === \'91android\'92 ? 2 : 0,\
+	
+\f1\b borderWidth: Platform.select(\{ ios: 0, android: 2 \}),
+\f0\b0 \
+    borderColor: 'white',\
+    padding: 12,\
+
+\f1\b 	
+\f0\b0 maxWidth: \'9280%\'92,\
+	width: 300\
+  \},\
+\});\
+\
+Another alternative is to write platform-specific code files\
+\
+Copy Title.js and duplicate it as Title.android.js\
+Rename Title.js as Title.ios.js\
+\
+When the filename is changed all the references are updated. Make sure that imports are for Title only not Title.ios\
+\
+React native automatically selects the code based on the platform that the app is running\
+\
+Go to Title.android.js and remove the platform specific code\
+\
+const styles = StyleSheet.create(\{\
+  title: \{\
+    fontFamily: 'open-sans-bold',\
+    fontSize: 24,\
+    color: 'white',\
+    textAlign: 'center',\
+    //borderWidth: Platform.OS === \'91android\'92 ? 2 : 0,\
+	//borderWidth: Platform.select(\{ ios: 0, android: 2 \}),\
+
+\f1\b 	borderWidth: 2,
+\f0\b0 \
+    borderColor: 'white',\
+    padding: 12,\
+
+\f1\b 	
+\f0\b0 maxWidth: \'9280%\'92,\
+	width: 300\
+  \},\
+\});\
+\
+On Title.ios.js remove the platform specific code\
+\
+const styles = StyleSheet.create(\{\
+  title: \{\
+    fontFamily: 'open-sans-bold',\
+    fontSize: 24,\
+    color: 'white',\
+    textAlign: 'center',\
+    //borderWidth: Platform.OS === \'91android\'92 ? 2 : 0,\
+	//borderWidth: Platform.select(\{ ios: 0, android: 2 \}),\
+
+\f1\b 	//borderWidth: 0,\
+    //borderColor: 'white',
+\f0\b0 \
+    padding: 12,\
+
+\f1\b 	
+\f0\b0 maxWidth: \'9280%\'92,\
+	width: 300\
+  \},\
+\});\
+\
+Could also be done for the colors file\
+\
+
+\f1\b Styling the Status Bar\
+
+\f0\b0 \
+In App.js, import the status bar\
+\
+
+\f1\b import \{ StatusBar \} from \'91expo-status-bar\'92;\
+\
+..\
+\
+
+\f0\b0   return (\
+
+\f1\b 	<>\
+	<StatusBar style=\'93light\'94/>	//or dark
+\f0\b0 \
+    <LinearGradient\
+      colors=\{[Colors.primary700, Colors.accent500]\}\
+      style=\{styles.rootScreen\}\
+    >\
+      <ImageBackground\
+        source=\{require('./assets/images/background.png')\}\
+        resizeMode="cover"\
+        style=\{styles.rootScreen\}\
+        imageStyle=\{styles.backgroundImage\}\
+      >\
+        <SafeAreaView style=\{styles.rootScreen\}>\{screen\}</SafeAreaView>\
+      </ImageBackground>\
+    </LinearGradient>\
+
+\f1\b 	</>\
+
+\f0\b0   );}

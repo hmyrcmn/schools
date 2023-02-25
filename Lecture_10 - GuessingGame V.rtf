@@ -1,0 +1,1642 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2639
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset0 Menlo-Bold;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red183\green111\blue179;\red23\green23\blue23;
+\red202\green202\blue202;\red140\green211\blue254;\red194\green126\blue101;\red70\green137\blue204;\red212\green214\blue154;
+\red66\green179\blue255;\red109\green109\blue109;\red67\green192\blue160;\red167\green197\blue152;\red89\green138\blue67;
+\red0\green0\blue0;\red255\green255\blue255;\red255\green255\blue255;\red0\green0\blue0;\red0\green0\blue0;
+}
+{\*\expandedcolortbl;;\csgray\c0;\cssrgb\c77255\c52549\c75294;\cssrgb\c11765\c11765\c11765;
+\cssrgb\c83137\c83137\c83137;\cssrgb\c61176\c86275\c99608;\cssrgb\c80784\c56863\c47059;\cssrgb\c33725\c61176\c83922;\cssrgb\c86275\c86275\c66667;
+\cssrgb\c30980\c75686\c100000;\cssrgb\c50196\c50196\c50196;\cssrgb\c30588\c78824\c69020;\cssrgb\c70980\c80784\c65882;\cssrgb\c41569\c60000\c33333;
+\cssrgb\c0\c1\c1;\cssrgb\c100000\c100000\c99956\c0;\cssrgb\c100000\c100000\c100000;\cssrgb\c0\c0\c0;\csgray\c0\c0;
+}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs22 \cf2 \CocoaLigature0 Create a new project:\
+npx create-expo-app GuessingGame\
+npm start (npx expo start)\
+\
+App.js\
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf3 \cb4 \expnd0\expndtw0\kerning0
+\CocoaLigature1 import\cf5  \{ \cf6 StyleSheet\cf5 , \cf6 ImageBackground\cf5 , \cf6 SafeAreaView\cf5  \} \cf3 from\cf5  \cf7 'react-native'\cf5 ;\cb1 \
+\cf3 \cb4 import\cf5  \{ \cf6 useState\cf5  \} \cf3 from\cf5  \cf7 'react'\cf5 ;\cb1 \
+\cf3 \cb4 import\cf5  \cf6 StartGameScreen\cf5  \cf3 from\cf5  \cf7 './screens/StartGameScreen'\cf5 ;\cb1 \
+\cf3 \cb4 import\cf5  \cf6 GameScreen\cf5  \cf3 from\cf5  \cf7 './screens/GameScreen'\cf5 ;\cb1 \
+\cf3 \cb4 import\cf5  \cf6 GameOverScreen\cf5  \cf3 from\cf5  \cf7 './screens/GameOverScreen'\cf5 ;\cb1 \
+\cf3 \cb4 import\cf5  \{ \cf6 LinearGradient\cf5  \} \cf3 from\cf5  \cf7 'expo-linear-gradient'\cf5 ;\cb1 \
+\cf3 \cb4 import\cf5  \cf6 Colors\cf5  \cf3 from\cf5  \cf7 './constants/Colors'\cf5 ;\cb1 \
+\
+\cf3 \cb4 export\cf5  \cf3 default\cf5  \cf8 function\cf5  \cf9 App\cf5 () \{\cb1 \
+\
+\cb4   \cf8 const\cf5  [\cf10 userNumber\cf5 , \cf9 setUserNumber\cf5 ] = \cf9 useState\cf5 ();\cb1 \
+\cb4   \cf8 const\cf5  [\cf10 gameIsOver\cf5 , \cf9 setGameIsOver\cf5 ] = \cf9 useState\cf5 (\cf8 true\cf5 );\cb1 \
+\
+\cb4   \cf8 function\cf5  \cf9 pickedNumberHandler\cf5 (\cf6 pickedNumber\cf5 ) \{\cb1 \
+\cb4     \cf9 setUserNumber\cf5 (\cf6 pickedNumber\cf5 );\cb1 \
+\cb4     \cf9 setGameIsOver\cf5 (\cf8 false\cf5 );\cb1 \
+\cb4   \}\cb1 \
+\
+\cb4   \cf8 function\cf5  \cf9 gameOverHandler\cf5 () \{\cb1 \
+\cb4     \cf9 setGameIsOver\cf5 (\cf8 true\cf5 );\cb1 \
+\cb4   \}\cb1 \
+\
+\cb4   \cf8 let\cf5  \cf6 screen\cf5  = \cf11 <\cf12 StartGameScreen\cf5  \cf6 onPickNumber\cf5 =\cf8 \{\cf9 pickedNumberHandler\cf8 \}\cf11 />\cf5 \cb1 \
+\
+\cb4   \cf3 if\cf5  (\cf10 userNumber\cf5 ) \{\cb1 \
+\cb4     \cf6 screen\cf5  = \cf11 <\cf12 GameScreen\cf5  \cf6 userNumber\cf5 =\cf8 \{\cf10 userNumber\cf8 \}\cf5  \cf6 onGameOver\cf5 =\cf8 \{\cf9 gameOverHandler\cf8 \}\cf11 />\cf5 \cb1 \
+\cb4   \}\cb1 \
+\
+\cb4   \cf3 if\cf5  (\cf10 gameIsOver\cf5  && \cf10 userNumber\cf5 ) \{\cb1 \
+\cb4     \cf6 screen\cf5  = \cf11 <\cf12 GameOverScreen\cf5  \cf11 />\cf5 \cb1 \
+\cb4   \}\cb1 \
+\
+\cb4   \cf3 return\cf5  (\cb1 \
+\cb4     \cf11 <\cf12 LinearGradient\cf5  \cf6 colors\cf5 =\cf8 \{\cf5 [\cf10 Colors\cf5 .\cf6 primary700\cf5 , \cf10 Colors\cf5 .\cf6 accent500\cf5 ]\cf8 \}\cf5  \cf6 style\cf5 =\cf8 \{\cf10 styles\cf5 .\cf6 rootScreen\cf8 \}\cf11 >\cf5 \cb1 \
+\cb4       \cf11 <\cf12 ImageBackground\cf5 \cb1 \
+\cb4         \cf6 source\cf5 =\cf8 \{\cf9 require\cf5 (\cf7 './assets/images/background.jpg'\cf5 )\cf8 \}\cf5 \cb1 \
+\cb4         \cf6 resizeMode\cf5 =\cf7 "cover"\cf5 \cb1 \
+\cb4         \cf6 style\cf5 =\cf8 \{\cf10 styles\cf5 .\cf6 rootScreen\cf8 \}\cf5 \cb1 \
+\cb4         \cf6 imageStyle\cf5 =\cf8 \{\cf10 styles\cf5 .\cf6 backgroundImage\cf8 \}\cf5 \cb1 \
+\cb4       \cf11 >\cf5 \cb1 \
+\cb4         \cf11 <\cf12 SafeAreaView\cf5  \cf6 style\cf5 =\cf8 \{\cf10 styles\cf5 .\cf6 rootScreen\cf8 \}\cf11 >\cf5 \cb1 \
+\cb4           \cf8 \{\cf6 screen\cf8 \}\cf5 \cb1 \
+\cb4         \cf11 </\cf12 SafeAreaView\cf11 >\cf5 \cb1 \
+\cb4       \cf11 </\cf12 ImageBackground\cf11 >\cf5 \cb1 \
+\cb4     \cf11 </\cf12 LinearGradient\cf11 >\cf5 \cb1 \
+\cb4   );\cb1 \
+\cb4 \}\cb1 \
+\
+\cf8 \cb4 const\cf5  \cf10 styles\cf5  = \cf12 StyleSheet\cf5 .\cf9 create\cf5 (\{\cb1 \
+\cb4   \cf6 rootScreen:\cf5  \{\cb1 \
+\cb4     \cf6 flex:\cf5  \cf13 1\cf5 ,\cb1 \
+\cb4   \},\cb1 \
+\cb4   \cf6 backgroundImage:\cf5  \{\cb1 \
+\cb4     \cf6 opacity:\cf5  \cf13 0.15\cf5 \cb1 \
+\cb4   \}\cb1 \
+\cb4 \});\cb1 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\fs22 \cf2 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+PrimaryButton.js\
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf3 \cb4 \expnd0\expndtw0\kerning0
+\CocoaLigature1 import\cf5  \{\cf6 View\cf5 , \cf6 Text\cf5 , \cf6 Pressable\cf5 , \cf6 StyleSheet\cf5 \} \cf3 from\cf5  \cf7 'react-native'\cf5 ;\cb1 \
+\cf3 \cb4 import\cf5  \cf6 Colors\cf5  \cf3 from\cf5  \cf7 '../../constants/Colors'\cf5 ;\cb1 \
+\
+\cf8 \cb4 function\cf5  \cf9 PrimaryButton\cf5 (\{\cf6 children\cf5 , \cf6 onPress\cf5 \}) \{\cb1 \
+\
+\cb4     \cf3 return\cf5  (\cb1 \
+\cb4         \cf11 <\cf12 View\cf5  \cf6 style\cf5 =\cf8 \{\cf10 styles\cf5 .\cf6 buttonOuterContainer\cf8 \}\cf11 >\cf5 \cb1 \
+\cb4             \cf11 <\cf12 Pressable\cf5  \cb1 \
+\cb4                 \cf6 style\cf5 =\cf8 \{\cf5  (\{\cf6 pressed\cf5 \}) \cf8 =>\cf5  \cb1 \
+\cb4                     \cf6 pressed\cf5  ? \cb1 \
+\cb4                     [\cf10 styles\cf5 .\cf6 buttonInnerContainer\cf5 , \cf10 styles\cf5 .\cf6 pressed\cf5 ] : \cb1 \
+\cb4                     \cf10 styles\cf5 .\cf6 buttonInnerContainer\cf5 \cb1 \
+\cb4                 \cf8 \}\cf5 \cb1 \
+\cb4                 \cf6 onPress\cf5 =\cf8 \{\cf6 onPress\cf8 \}\cf5 \cb1 \
+\cb4                 \cf6 android_ripple\cf5 =\cf8 \{\cf5 \{\cf6 color:\cf5  \cf10 Colors\cf5 .\cf6 primary600\cf5 \}\cf8 \}\cf5 \cb1 \
+\cb4             \cf11 >\cf5 \cb1 \
+\cb4                 \cf11 <\cf12 Text\cf5  \cb1 \
+\cb4                     \cf6 style\cf5 =\cf8 \{\cf10 styles\cf5 .\cf6 buttonText\cf8 \}\cf5 \cb1 \
+\cb4                 \cf11 >\cf5 \cb1 \
+\cb4                     \cf8 \{\cf6 children\cf8 \}\cf5 \cb1 \
+\cb4                 \cf11 </\cf12 Text\cf11 >\cf5 \cb1 \
+\cb4             \cf11 </\cf12 Pressable\cf11 >\cf5 \cb1 \
+\cb4         \cf11 </\cf12 View\cf11 >\cf5 \cb1 \
+\cb4     );\cb1 \
+\cb4 \}\cb1 \
+\
+\cf3 \cb4 export\cf5  \cf3 default\cf5  \cf9 PrimaryButton\cf5 ;\cb1 \
+\
+\cf8 \cb4 const\cf5  \cf10 styles\cf5  = \cf12 StyleSheet\cf5 .\cf9 create\cf5 (\{\cb1 \
+\cb4     \cf6 buttonOuterContainer:\cf5  \{\cb1 \
+\cb4         \cf6 borderRadius:\cf5  \cf13 28\cf5 ,\cb1 \
+\cb4         \cf6 margin:\cf5  \cf13 4\cf5 ,\cb1 \
+\cb4         \cf6 overflow:\cf5  \cf7 'hidden'\cf5 \cb1 \
+\cb4     \},\cb1 \
+\cb4     \cf6 buttonInnerContainer:\cf5  \{\cb1 \
+\cb4         \cf6 backgroundColor:\cf5  \cf6 Colors\cf5 .\cf6 primary500\cf5 ,\cb1 \
+\cb4         \cf6 paddingVertical:\cf5  \cf13 8\cf5 ,\cb1 \
+\cb4         \cf6 paddingHorizontal:\cf5  \cf13 16\cf5 ,\cb1 \
+\cb4         \cf6 elevation:\cf5  \cf13 2\cf5 \cb1 \
+\cb4     \},\cb1 \
+\cb4     \cf6 buttonText:\cf5  \{\cb1 \
+\cb4         \cf6 color:\cf5  \cf7 'white'\cf5 ,\cb1 \
+\cb4         \cf6 textAlign:\cf5  \cf7 'center'\cf5 \cb1 \
+\cb4     \},\cb1 \
+\cb4     \cf6 pressed:\cf5  \{\cb1 \
+\cb4         \cf6 opacity:\cf5  \cf13 0.75\cf5 \cb1 \
+\cb4     \}\cb1 \
+\cb4 \});\cb1 \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\fs22 \cf2 \kerning1\expnd0\expndtw0 \CocoaLigature0 StartGameScreen.js\
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf3 \cb4 \expnd0\expndtw0\kerning0
+\CocoaLigature1 import\cf5  \{ \cf6 TextInput\cf5 , \cf6 View\cf5 , \cf6 StyleSheet\cf5 , \cf6 Alert\cf5  \} \cf3 from\cf5  \cf7 "react-native"\cf5 ;\cb1 \
+\cf3 \cb4 import\cf5  \{ \cf6 useState\cf5  \} \cf3 from\cf5  \cf7 "react"\cf5 ;\cb1 \
+\cf3 \cb4 import\cf5  \cf6 PrimaryButton\cf5  \cf3 from\cf5  \cf7 "../components/ui/PrimaryButton"\cf5 ;\cb1 \
+\cf3 \cb4 import\cf5  \cf6 InstructionText\cf5  \cf3 from\cf5  \cf7 "../components/ui/InstructionText"\cf5 ;\cb1 \
+\cf3 \cb4 import\cf5  \cf6 Card\cf5  \cf3 from\cf5  \cf7 "../components/ui/Card"\cf5 ;\cb1 \
+\cf3 \cb4 import\cf5  \cf6 Title\cf5  \cf3 from\cf5  \cf7 "../components/ui/Title"\cf5 ;\cb1 \
+\cf3 \cb4 import\cf5  \cf6 Colors\cf5  \cf3 from\cf5  \cf7 "../constants/Colors"\cf5 ;\cb1 \
+\
+\cf8 \cb4 function\cf5  \cf9 StartGameScreen\cf5 (\{\cf6 onPickNumber\cf5 \}) \{\cb1 \
+\
+\cb4     \cf8 const\cf5  [\cf10 enteredNumber\cf5 , \cf9 setEnteredNumber\cf5 ] = \cf9 useState\cf5 (\cf7 ''\cf5 )\cb1 \
+\
+\cb4     \cf8 function\cf5  \cf9 numberInputHandler\cf5 (\cf6 enteredText\cf5 ) \{\cb1 \
+\cb4         \cf9 setEnteredNumber\cf5 (\cf6 enteredText\cf5 );\cb1 \
+\cb4     \}\cb1 \
+\
+\cb4     \cf8 function\cf5  \cf9 confirmInputHandler\cf5 () \{\cb1 \
+\cb4         \cf8 const\cf5  \cf10 chosenNumber\cf5  = \cf9 parseInt\cf5 (\cf10 enteredNumber\cf5 );\cb1 \
+\
+\cb4         \cf3 if\cf5  (\cf9 isNaN\cf5 (\cf10 chosenNumber\cf5 ) || \cf10 chosenNumber\cf5  <= \cf13 0\cf5  || \cf10 chosenNumber\cf5  > \cf13 99\cf5 ) \{\cb1 \
+\cb4             \cf12 Alert\cf5 .\cf9 alert\cf5 (\cb1 \
+\cb4                 \cf7 'Invalid number!'\cf5 ,\cb1 \
+\cb4                 \cf7 'Number has to be a number between 1 and 99'\cf5 ,\cb1 \
+\cb4                 [\{\cf6 text:\cf5  \cf7 'Okay'\cf5 , \cf6 style:\cf5  \cf7 'destructive'\cf5 , \cf9 onPress\cf6 :\cf5  \cf9 resetInputHandler\cf5 \}]\cb1 \
+\cb4             );\cb1 \
+\cb4             \cf3 return\cf5 ;\cb1 \
+\cb4         \}\cb1 \
+\cb4         \cf9 onPickNumber\cf5 (\cf10 chosenNumber\cf5 );\cb1 \
+\cb4     \}\cb1 \
+\
+\cb4     \cf8 function\cf5  \cf9 resetInputHandler\cf5 () \{\cb1 \
+\cb4         \cf9 setEnteredNumber\cf5 (\cf7 ''\cf5 );\cb1 \
+\cb4     \}\cb1 \
+\
+\cb4     \cf3 return\cf5  (\cb1 \
+\cb4         \cf11 <\cf12 View\cf5  \cf6 style\cf5 =\cf8 \{\cf6 styles\cf5 .\cf6 rootContainer\cf8 \}\cf11 >\cf5 \cb1 \
+\cb4             \cf11 <\cf12 Title\cf11 >\cf5 Bir Say\uc0\u305  Tahmin Edin\cf11 </\cf12 Title\cf11 >\cf5 \cb1 \
+\cb4             \cf11 <\cf12 Card\cf11 >\cf5 \cb1 \
+\cb4                 \cf11 <\cf12 InstructionText\cf11 >\cf5 1-100 Aras\uc0\u305 nda Bir Say\u305  Girin\cf11 </\cf12 InstructionText\cf11 >\cf5 \cb1 \
+\cb4                 \cf11 <\cf12 TextInput\cf5  \cb1 \
+\cb4                     \cf6 style\cf5 =\cf8 \{\cf6 styles\cf5 .\cf6 numberInput\cf8 \}\cf5 \cb1 \
+\cb4                     \cf6 maxLength\cf5 =\cf8 \{\cf13 2\cf8 \}\cf5 \cb1 \
+\cb4                     \cf6 keyboardType\cf5 =\cf7 "number-pad"\cf5 \cb1 \
+\cb4                     \cf6 autoCapitalize\cf5 =\cf7 "none"\cf5 \cb1 \
+\cb4                     \cf6 autoCorrect\cf5 =\cf8 \{false\}\cf5 \cb1 \
+\cb4                     \cf6 onChangeText\cf5  = \cf8 \{\cf6 numberInputHandler\cf8 \}\cf5 \cb1 \
+\cb4                     \cf6 value\cf5  = \cf8 \{\cf6 enteredNumber\cf8 \}\cf5 \cb1 \
+\cb4                 \cf11 />\cf5 \cb1 \
+\cb4                 \cf11 <\cf12 View\cf5  \cf6 style\cf5 =\cf8 \{\cf6 styles\cf5 .\cf6 buttonsContainer\cf8 \}\cf11 >\cf5 \cb1 \
+\cb4                     \cf11 <\cf12 View\cf5  \cf6 style\cf5 =\cf8 \{\cf6 styles\cf5 .\cf6 buttonContainer\cf8 \}\cf11 >\cf5 \cb1 \
+\cb4                         \cf11 <\cf12 PrimaryButton\cf5 \cb1 \
+\cb4                             \cf6 onPress\cf5 =\cf8 \{\cf6 resetInputHandler\cf8 \}\cf5 \cb1 \
+\cb4                         \cf11 >\cf5 \cb1 \
+\cb4                             \uc0\u304 ptal\cb1 \
+\cb4                         \cf11 </\cf12 PrimaryButton\cf11 >\cf5 \cb1 \
+\cb4                     \cf11 </\cf12 View\cf11 >\cf5 \cb1 \
+\cb4                     \cf11 <\cf12 View\cf5  \cf6 style\cf5 =\cf8 \{\cf6 styles\cf5 .\cf6 buttonContainer\cf8 \}\cf11 >\cf5 \cb1 \
+\cb4                         \cf11 <\cf12 PrimaryButton\cf5  \cb1 \
+\cb4                             \cf6 onPress\cf5 =\cf8 \{\cf6 confirmInputHandler\cf8 \}\cf5 \cb1 \
+\cb4                         \cf11 >\cf5 \cb1 \
+\cb4                             Tamam\cb1 \
+\cb4                         \cf11 </\cf12 PrimaryButton\cf11 >\cf5     \cb1 \
+\cb4                     \cf11 </\cf12 View\cf11 >\cf5 \cb1 \
+\cb4                 \cf11 </\cf12 View\cf11 >\cf5 \cb1 \
+\cb4             \cf11 </\cf12 Card\cf11 >\cf5 \cb1 \
+\cb4         \cf11 </\cf12 View\cf11 >\cf5 \cb1 \
+\cb4     );\cb1 \
+\cb4 \}\cb1 \
+\
+\cf3 \cb4 export\cf5  \cf3 default\cf5  \cf6 StartGameScreen\cf5 ;\cb1 \
+\
+\cf8 \cb4 const\cf5  \cf10 styles\cf5  = \cf6 StyleSheet\cf5 .\cf9 create\cf5 (\{\cb1 \
+\cb4     \cf6 rootContainer:\cf5  \{\cb1 \
+\cb4         \cf6 flex:\cf5  \cf13 1\cf5 ,\cb1 \
+\cb4         \cf6 marginTop:\cf5  \cf13 100\cf5 ,\cb1 \
+\cb4         \cf6 alignItems:\cf5  \cf7 'center'\cf5 \cb1 \
+\cb4     \},\cb1 \
+\cb4     \cf6 numberInput:\cf5  \{\cb1 \
+\cb4         \cf6 height:\cf5  \cf13 50\cf5 ,\cb1 \
+\cb4         \cf6 width:\cf5  \cf13 50\cf5 ,\cb1 \
+\cb4         \cf6 fontSize:\cf5  \cf13 32\cf5 ,\cb1 \
+\cb4         \cf6 borderBottomColor:\cf5  \cf6 Colors\cf5 .\cf6 accent500\cf5 ,\cb1 \
+\cb4         \cf6 borderBottomWidth:\cf5  \cf13 2\cf5 ,\cb1 \
+\cb4         \cf6 color:\cf5  \cf6 Colors\cf5 .\cf6 accent500\cf5 ,\cb1 \
+\cb4         \cf6 marginVertical:\cf5  \cf13 8\cf5 ,\cb1 \
+\cb4         \cf6 fontWeight:\cf5  \cf7 'bold'\cf5 ,\cb1 \
+\cb4         \cf6 textAlign:\cf5  \cf7 'center'\cf5 \cb1 \
+\cb4     \},\cb1 \
+\cb4     \cf6 buttonsContainer:\cf5  \{\cb1 \
+\cb4         \cf6 flexDirection:\cf5  \cf7 'row'\cf5 \cb1 \
+\cb4     \},\cb1 \
+\cb4     \cf6 buttonContainer:\cf5  \{\cb1 \
+\cb4         \cf6 flex:\cf5  \cf13 1\cf5 \cb1 \
+\cb4     \},\cb1 \
+\cb4 \});\cb1 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\fs22 \cf2 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+GameScreen.js\
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf3 \cb4 \expnd0\expndtw0\kerning0
+\CocoaLigature1 import\cf5  \{\cf6 View\cf5 , \cf6 StyleSheet\cf5 , \cf6 Alert\cf5 \} \cf3 from\cf5  \cf7 'react-native'\cf5 ;\cb1 \
+\cf3 \cb4 import\cf5  \{ \cf6 useState\cf5 , \cf6 useEffect\cf5  \} \cf3 from\cf5  \cf7 'react'\cf5 ;\cb1 \
+\cf3 \cb4 import\cf5  \cf6 NumberContainer\cf5  \cf3 from\cf5  \cf7 '../components/game/NumberContainer'\cf5 ;\cb1 \
+\cf3 \cb4 import\cf5  \cf6 Title\cf5  \cf3 from\cf5  \cf7 '../components/ui/Title'\cf5 ;\cb1 \
+\cf3 \cb4 import\cf5  \cf6 PrimaryButton\cf5  \cf3 from\cf5  \cf7 '../components/ui/PrimaryButton'\cf5 ;\cb1 \
+\cf3 \cb4 import\cf5  \cf6 InstructionText\cf5  \cf3 from\cf5  \cf7 '../components/ui/InstructionText'\cf5 ;\cb1 \
+\cf3 \cb4 import\cf5  \cf6 Card\cf5  \cf3 from\cf5  \cf7 '../components/ui/Card'\cf5 ;\cb1 \
+\
+\cf8 \cb4 function\cf5  \cf9 generateRandomBetween\cf5 (\cf6 min\cf5 , \cf6 max\cf5 , \cf6 exclude\cf5 ) \{\cb1 \
+\cb4     \cf8 const\cf5  \cf10 rndNum\cf5  = \cf6 Math\cf5 .\cf9 floor\cf5 ( \cf6 Math\cf5 .\cf9 random\cf5 () * (\cf6 max\cf5 -\cf6 min\cf5 ) ) + \cf6 min\cf5 ;\cb1 \
+\
+\cb4     \cf3 if\cf5  (\cf6 rndNum\cf5  === \cf6 exclude\cf5 ) \{\cb1 \
+\cb4         \cf3 return\cf5  \cf9 generateRandomBetween\cf5 (\cf6 min\cf5 , \cf6 max\cf5 , \cf6 exclude\cf5 );\cb1 \
+\cb4     \} \cf3 else\cf5  \{\cb1 \
+\cb4         \cf3 return\cf5  \cf6 rndNum\cf5 ;\cb1 \
+\cb4     \}\cb1 \
+\cb4 \}\cb1 \
+\
+\cf8 \cb4 let\cf5  \cf6 minBoundary\cf5  = \cf13 1\cf5 ;\cb1 \
+\cf8 \cb4 let\cf5  \cf6 maxBoundary\cf5  = \cf13 100\cf5 ;\cb1 \
+\
+\cf8 \cb4 function\cf5  \cf9 GameScreen\cf5 (\{\cf6 userNumber\cf5 , \cf6 onGameOver\cf5 \}) \{\cb1 \
+\cb4     \cf8 const\cf5  \cf10 initialGuess\cf5  = \cf9 generateRandomBetween\cf5 (\cf13 1\cf5 , \cf13 100\cf5 , \cf6 userNumber\cf5 );\cb1 \
+\cb4     \cf8 const\cf5  [\cf10 currentGuess\cf5 , \cf10 setCurrentGuess\cf5 ] = \cf9 useState\cf5 (\cf6 initialGuess\cf5 );\cb1 \
+\
+\cb4     \cf9 useEffect\cf5 ( () \cf8 =>\cf5  \{\cb1 \
+\cb4         \cf3 if\cf5  (\cf6 currentGuess\cf5  === \cf6 userNumber\cf5 ) \{\cb1 \
+\cb4             \cf9 onGameOver\cf5 ();\cb1 \
+\cb4         \}\cb1 \
+\cb4     \}, [\cf6 currentGuess\cf5 , \cf6 userNumber\cf5 , \cf6 onGameOver\cf5 ]);\cb1 \
+\
+\cb4     \cf8 function\cf5  \cf9 nextGuessHandler\cf5 (\cf6 direction\cf5 ) \{  \cf14 //'lower' or 'greater'\cf5 \cb1 \
+\cb4         \cf3 if\cf5  ((\cf6 direction\cf5  === \cf7 'lower'\cf5  && \cf6 currentGuess\cf5 <\cf6 userNumber\cf5 ) ||\cb1 \
+\cb4             (\cf6 direction\cf5  === \cf7 'greater'\cf5  && \cf6 currentGuess\cf5 >\cf6 userNumber\cf5 )) \{\cb1 \
+\cb4             \cf6 Alert\cf5 .\cf9 alert\cf5 (\cb1 \
+\cb4                 \cf7 "Yanl\uc0\u305 \u351  Geri Bildirim!"\cf5 , \cb1 \
+\cb4                 \cf7 'Hatal\uc0\u305  y\'f6nlendirme yapt\u305 n\u305 z..'\cf5 ,\cb1 \
+\cb4                 [\{\cf6 text:\cf5  \cf7 '\'dczg\'fcn\'fcm'\cf5 , \cf6 style:\cf5  \cf7 'cancel'\cf5 \}]\cb1 \
+\cb4             );\cb1 \
+\cb4             \cf14 //return;\cf5 \cb1 \
+\cb4         \}\cb1 \
+\
+\cb4         \cf3 if\cf5  (\cf6 direction\cf5  === \cf7 'lower'\cf5 ) \{\cb1 \
+\cb4             \cf6 maxBoundary\cf5  = \cf6 currentGuess\cf5 ;\cb1 \
+\cb4         \} \cf3 else\cf5  \{\cb1 \
+\cb4             \cf6 minBoundary\cf5  = \cf6 currentGuess\cf5  + \cf13 1\cf5 ;\cb1 \
+\cb4         \}\cb1 \
+\cb4         \cf8 const\cf5  \cf10 newRndNumber\cf5  = \cf9 generateRandomBetween\cf5 (\cb1 \
+\cb4             \cf6 minBoundary\cf5 , \cb1 \
+\cb4             \cf6 maxBoundary\cf5 , \cb1 \
+\cb4             \cf6 currentGuess\cf5 \cb1 \
+\cb4             );\cb1 \
+\cb4         \cf9 setCurrentGuess\cf5 (\cf6 newRndNumber\cf5 );\cb1 \
+\cb4     \}\cb1 \
+\
+\cb4     \cf3 return\cf5  (\cb1 \
+\cb4         \cf11 <\cf12 View\cf5  \cf6 style\cf5 =\cf8 \{\cf10 styles\cf5 .\cf6 screen\cf8 \}\cf11 >\cf5 \cb1 \
+\cb4             \cf11 <\cf12 Title\cf11 >\cf5 Rakibin Tahmini\cf11 </\cf12 Title\cf11 >\cf5 \cb1 \
+\cb4             \cf11 <\cf12 NumberContainer\cf11 >\cf8 \{\cf10 currentGuess\cf8 \}\cf11 </\cf12 NumberContainer\cf11 >\cf5 \cb1 \
+\cb4             \cf11 <\cf12 Card\cf11 >\cf5 \cb1 \
+\cb4                 \cf11 <\cf12 InstructionText\cf5  \cf6 style\cf5 =\cf8 \{\cf10 styles\cf5 .\cf6 instructionText\cf8 \}\cf11 >\cf5 Y\'fckselt veya Azalt\cf11 </\cf12 InstructionText\cf11 >\cf5 \cb1 \
+\cb4                 \cf11 <\cf12 View\cf5  \cf6 style\cf5 =\cf8 \{\cf10 styles\cf5 .\cf6 buttonsContainer\cf8 \}\cf11 >\cf5 \cb1 \
+\cb4                     \cf11 <\cf12 View\cf5  \cf6 style\cf5 =\cf8 \{\cf10 styles\cf5 .\cf6 buttonContainer\cf8 \}\cf11 >\cf5 \cb1 \
+\cb4                         \cf11 <\cf12 PrimaryButton\cf5  \cf6 onPress\cf5 =\cf8 \{\cf9 nextGuessHandler\cf5 .\cf9 bind\cf5 (\cf8 this\cf5 , \cf7 'lower'\cf5 )\cf8 \}\cf11 >\cf5 -\cf11 </\cf12 PrimaryButton\cf11 >\cf5 \cb1 \
+\cb4                     \cf11 </\cf12 View\cf11 >\cf5 \cb1 \
+\cb4                     \cf11 <\cf12 View\cf5  \cf6 style\cf5 =\cf8 \{\cf10 styles\cf5 .\cf6 buttonContainer\cf8 \}\cf11 >\cf5 \cb1 \
+\cb4                     \cf11 <\cf12 PrimaryButton\cf5  \cf6 onPress\cf5 =\cf8 \{\cf9 nextGuessHandler\cf5 .\cf9 bind\cf5 (\cf8 this\cf5 , \cf7 'greater'\cf5 )\cf8 \}\cf11 >\cf5 +\cf11 </\cf12 PrimaryButton\cf11 >\cf5 \cb1 \
+\cb4                     \cf11 </\cf12 View\cf11 >\cf5 \cb1 \
+\cb4                 \cf11 </\cf12 View\cf11 >\cf5 \cb1 \
+\cb4             \cf11 </\cf12 Card\cf11 >\cf5 \cb1 \
+\cb4             \cf8 \{\cf14 /* <View>OYUN KAYDI</View> */\cf8 \}\cf5 \cb1 \
+\cb4         \cf11 </\cf12 View\cf11 >\cf5 \cb1 \
+\cb4     );\cb1 \
+\cb4 \}\cb1 \
+\
+\cf3 \cb4 export\cf5  \cf3 default\cf5  \cf9 GameScreen\cf5 ;\cb1 \
+\
+\cf8 \cb4 const\cf5  \cf10 styles\cf5  = \cf12 StyleSheet\cf5 .\cf9 create\cf5 (\{\cb1 \
+\cb4     \cf6 screen:\cf5  \{\cb1 \
+\cb4         \cf6 flex:\cf5  \cf13 1\cf5 ,\cb1 \
+\cb4         \cf6 padding:\cf5  \cf13 24\cf5 \cb1 \
+\cb4     \},\cb1 \
+\cb4     \cf6 instructionText:\cf5  \{\cb1 \
+\cb4         \cf6 marginBottom:\cf5  \cf13 12\cf5 \cb1 \
+\cb4     \},\cb1 \
+\cb4     \cf6 buttonsContainer:\cf5  \{\cb1 \
+\cb4         \cf6 flexDirection:\cf5  \cf7 'row'\cf5 \cb1 \
+\cb4     \},\cb1 \
+\cb4     \cf6 buttonContainer:\cf5  \{\cb1 \
+\cb4         \cf6 flex:\cf5  \cf13 1\cf5 \cb1 \
+\cb4     \}\cb1 \
+\cb4 \});\cb1 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\fs22 \cf2 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+GameOverScreen.js\
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf3 \cb4 \expnd0\expndtw0\kerning0
+\CocoaLigature1 import\cf5  \{ \cf6 Text\cf5  \} \cf3 from\cf5  \cf7 "react-native"\cf5 ;\cb1 \
+\
+\cf8 \cb4 function\cf5  \cf9 GameOverScreen\cf5 () \{\cb1 \
+\cb4     \cf3 return\cf5  \cf11 <\cf12 Text\cf11 >\cf5 Oyun Bitti!\cf11 </\cf12 Text\cf11 >\cf5 \cb1 \
+\cb4 \}\cb1 \
+\
+\cf3 \cb4 export\cf5  \cf3 default\cf5  \cf9 GameOverScreen\cf5 ;\cb1 \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\fs22 \cf2 \kerning1\expnd0\expndtw0 \CocoaLigature0 Title.js\
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf3 \cb4 \expnd0\expndtw0\kerning0
+\CocoaLigature1 import\cf5  \{\cf6 Text\cf5 , \cf6 StyleSheet\cf5 \} \cf3 from\cf5  \cf7 'react-native'\cf5 ;\cb1 \
+\
+\cf8 \cb4 function\cf5  \cf9 Title\cf5 (\{\cf6 children\cf5 \}) \{\cb1 \
+\cb4     \cf3 return\cf5  \cf11 <\cf12 Text\cf5  \cf6 style\cf5 =\cf8 \{\cf10 styles\cf5 .\cf6 title\cf8 \}\cf11 >\cf8 \{\cf6 children\cf8 \}\cf11 </\cf12 Text\cf11 >\cf5 \cb1 \
+\cb4 \}\cb1 \
+\
+\cf3 \cb4 export\cf5  \cf3 default\cf5  \cf9 Title\cf5 ;\cb1 \
+\
+\cf8 \cb4 const\cf5  \cf10 styles\cf5  = \cf12 StyleSheet\cf5 .\cf9 create\cf5 (\{\cb1 \
+\cb4     \cf6 title:\cf5  \{\cb1 \
+\cb4         \cf6 fontSize:\cf5  \cf13 24\cf5 ,\cb1 \
+\cb4         \cf6 fontWeight:\cf5  \cf7 'bold'\cf5 ,\cb1 \
+\cb4         \cf6 color:\cf5  \cf7 'white'\cf5 ,\cb1 \
+\cb4         \cf6 textAlign:\cf5  \cf7 'center'\cf5 ,\cb1 \
+\cb4         \cf6 borderWidth:\cf5  \cf13 2\cf5 ,\cb1 \
+\cb4         \cf6 borderColor:\cf5  \cf7 'white'\cf5 ,\cb1 \
+\cb4         \cf6 padding:\cf5  \cf13 12\cf5 \cb1 \
+\cb4     \}\cb1 \
+\cb4 \});\cb1 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\fs22 \cf2 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+NumberContainer.js\
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf3 \cb4 \expnd0\expndtw0\kerning0
+\CocoaLigature1 import\cf5  \{ \cf6 View\cf5 , \cf6 Text\cf5 , \cf6 StyleSheet\cf5  \} \cf3 from\cf5  \cf7 'react-native'\cf5 ;\cb1 \
+\cf3 \cb4 import\cf5  \cf6 Colors\cf5  \cf3 from\cf5  \cf7 '../../constants/Colors'\cf5 ;\cb1 \
+\
+\cf8 \cb4 function\cf5  \cf9 NumberContainer\cf5 (\{\cf6 children\cf5 \}) \{\cb1 \
+\cb4     \cf3 return\cf5  (\cb1 \
+\cb4         \cf11 <\cf12 View\cf5  \cf6 style\cf5 =\cf8 \{\cf10 styles\cf5 .\cf6 container\cf8 \}\cf11 >\cf5 \cb1 \
+\cb4             \cf11 <\cf12 Text\cf5  \cf6 style\cf5 =\cf8 \{\cf10 styles\cf5 .\cf6 numberText\cf8 \}\cf11 >\cf8 \{\cf6 children\cf8 \}\cf11 </\cf12 Text\cf11 >\cf5 \cb1 \
+\cb4         \cf11 </\cf12 View\cf11 >\cf5 \cb1 \
+\cb4     );\cb1 \
+\cb4 \}\cb1 \
+\
+\cf3 \cb4 export\cf5  \cf3 default\cf5  \cf9 NumberContainer\cf5 ;\cb1 \
+\
+\cf8 \cb4 const\cf5  \cf10 styles\cf5  = \cf12 StyleSheet\cf5 .\cf9 create\cf5 (\{\cb1 \
+\cb4     \cf6 container:\cf5  \{\cb1 \
+\cb4         \cf6 borderWidth:\cf5  \cf13 4\cf5 ,\cb1 \
+\cb4         \cf6 borderColor:\cf5  \cf10 Colors\cf5 .\cf6 accent500\cf5 ,\cb1 \
+\cb4         \cf6 padding:\cf5  \cf13 24\cf5 ,\cb1 \
+\cb4         \cf6 margin:\cf5  \cf13 24\cf5 ,\cb1 \
+\cb4         \cf6 borderRadius:\cf5  \cf13 8\cf5 ,\cb1 \
+\cb4         \cf6 alignItems:\cf5  \cf7 'center'\cf5 ,\cb1 \
+\cb4         \cf6 justifyContent:\cf5  \cf7 'center'\cf5 \cb1 \
+\cb4     \},\cb1 \
+\cb4     \cf6 numberText:\cf5  \{\cb1 \
+\cb4         \cf6 color:\cf5  \cf10 Colors\cf5 .\cf6 accent500\cf5 ,\cb1 \
+\cb4         \cf6 fontSize:\cf5  \cf13 36\cf5 ,\cb1 \
+\cb4         \cf6 fontWeight:\cf5  \cf7 'bold'\cf5 \cb1 \
+\cb4     \}\cb1 \
+\cb4 \});
+\fs22 \cf2 \cb1 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\
+Colors.js\
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf8 \cb4 \expnd0\expndtw0\kerning0
+\CocoaLigature1 const\cf5 \cb4  \cf10 \cb4 Colors\cf5 \cb4  = \{\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb4     \cf6 \cb4 primary500:\cf5 \cb4  \cf7 \cb4 '#72063c'\cf5 \cb4 ,\cb1 \
+\cb4     \cf6 \cb4 primary600:\cf5 \cb4  \cf7 \cb4 '#640233'\cf5 \cb4 ,\cb1 \
+\cb4     \cf6 \cb4 primary700:\cf5 \cb4  \cf7 \cb4 '#4e0329'\cf5 \cb4 ,\cb1 \
+\cb4     \cf6 \cb4 primary800:\cf5 \cb4  \cf7 \cb4 '#3b021f'\cf5 \cb4 ,\cb1 \
+\cb4     \cf6 \cb4 accent500:\cf5 \cb4  \cf7 \cb4 '#ddb52f'\cf5 \cb1 \
+\cb4 \};\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf3 \cb4 export\cf5 \cb4  \cf3 \cb4 default\cf5 \cb4  \cf10 \cb4 Colors\cf5 \cb4 ;\cb1 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\fs22 \cf2 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+Card.js\
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf3 \cb4 \expnd0\expndtw0\kerning0
+\CocoaLigature1 import\cf5  \{\cf6 View\cf5 , \cf6 StyleSheet\cf5 \} \cf3 from\cf5  \cf7 'react-native'\cf5 ;\cb1 \
+\cf3 \cb4 import\cf5  \cf6 Colors\cf5  \cf3 from\cf5  \cf7 '../../constants/Colors'\cf5 ;\cb1 \
+\
+\cf8 \cb4 function\cf5  \cf9 Card\cf5 (\{\cf6 children\cf5 \}) \{\cb1 \
+\cb4     \cf3 return\cf5  \cf11 <\cf12 View\cf5  \cf6 style\cf5 =\cf8 \{\cf10 styles\cf5 .\cf6 card\cf8 \}\cf11 >\cf8 \{\cf6 children\cf8 \}\cf11 </\cf12 View\cf11 >\cf5 ;\cb1 \
+\cb4 \}\cb1 \
+\
+\cf3 \cb4 export\cf5  \cf3 default\cf5  \cf9 Card\cf5 ;\cb1 \
+\
+\cf8 \cb4 const\cf5  \cf10 styles\cf5  = \cf12 StyleSheet\cf5 .\cf9 create\cf5 (\{\cb1 \
+\cb4     \cf6 card:\cf5  \{\cb1 \
+\cb4         \cf6 justifyContent:\cf5  \cf7 'center'\cf5 ,\cb1 \
+\cb4         \cf6 alignItems:\cf5  \cf7 'center'\cf5 ,\cb1 \
+\cb4         \cf6 padding:\cf5  \cf13 16\cf5 ,\cb1 \
+\cb4         \cf6 marginTop:\cf5  \cf13 36\cf5 ,\cb1 \
+\cb4         \cf6 marginHorizontal:\cf5  \cf13 24\cf5 ,\cb1 \
+\cb4         \cf6 backgroundColor:\cf5  \cf10 Colors\cf5 .\cf6 primary800\cf5 ,\cb1 \
+\cb4         \cf6 borderRadius:\cf5  \cf13 8\cf5 ,\cb1 \
+\cb4         \cf6 elevation:\cf5  \cf13 4\cf5 ,\cb1 \
+\cb4         \cf6 shadowColor:\cf5  \cf7 'black'\cf5 ,\cb1 \
+\cb4         \cf6 shadowOffset:\cf5  \{\cf6 width:\cf5  \cf13 0\cf5 , \cf6 height:\cf5  \cf13 2\cf5 \},\cb1 \
+\cb4         \cf6 shadowRadius:\cf5  \cf13 6\cf5 ,\cb1 \
+\cb4         \cf6 shadowOpacity:\cf5  \cf13 0.25\cf5 \cb1 \
+\cb4     \},\cb1 \
+\cb4 \});\cb1 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\fs22 \cf2 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+InstructionText.js\
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf3 \cb4 \expnd0\expndtw0\kerning0
+\CocoaLigature1 import\cf5  \{\cf6 Text\cf5 , \cf6 StyleSheet\cf5 \} \cf3 from\cf5  \cf7 'react-native'\cf5 ;\cb1 \
+\cf3 \cb4 import\cf5  \cf6 Colors\cf5  \cf3 from\cf5  \cf7 '../../constants/Colors'\cf5 ;\cb1 \
+\
+\cf8 \cb4 function\cf5  \cf9 InstructionText\cf5 (\{\cf6 children\cf5 , \cf6 style\cf5 \}) \{\cb1 \
+\cb4     \cf3 return\cf5  \cf11 <\cf12 Text\cf5  \cf6 style\cf5 =\cf8 \{\cf5 [\cf10 styles\cf5 .\cf6 instructionText\cf5 , \cf6 style\cf5 ]\cf8 \}\cf11 >\cf8 \{\cf6 children\cf8 \}\cf11 </\cf12 Text\cf11 >\cf5 \cb1 \
+\cb4 \}\cb1 \
+\
+\cf3 \cb4 export\cf5  \cf3 default\cf5  \cf9 InstructionText\cf5 ;\cb1 \
+\
+\cf8 \cb4 const\cf5  \cf10 styles\cf5  = \cf12 StyleSheet\cf5 .\cf9 create\cf5 (\{\cb1 \
+\cb4     \cf6 instructionText:\cf5  \{\cb1 \
+\cb4         \cf6 color:\cf5  \cf10 Colors\cf5 .\cf6 accent500\cf5 ,\cb1 \
+\cb4         \cf6 fontSize:\cf5  \cf13 24\cf5 ,\cb1 \
+\cb4     \},\cb1 \
+\cb4 \});\cb1 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\fs22 \cf2 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\b\fs24 \cf15 \cb16 \expnd0\expndtw0\kerning0
+\CocoaLigature1 Working with Icons (Button Icons)\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b0 \cf15 \
+\pard\pardeftab720\partightenfactor0
+\cf15 \cb17 Go to GameScreen.js\
+Add import from expo vector icons\
+Look for different icon sets: https://icons.expo.fyi search for remove and add\
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf18 \cb19 import \{View, StyleSheet, Alert\} from 'react-native';\
+import \{ useState, useEffect \} from 'react';\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf18 import \{Ionicons\} from \'91@expo/vector/vector-icons\'92;\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b0 \cf18 \
+import NumberContainer from '../components/game/NumberContainer';\
+import Title from '../components/ui/Title';\
+import PrimaryButton from '../components/ui/PrimaryButton';\
+import InstructionText from '../components/ui/InstructionText';\
+import Card from '../components/ui/Card';\
+\
+function generateRandomBetween(min, max, exclude) \{\
+    const rndNum = Math.floor( Math.random() * (max-min) ) + min;\
+\
+    if (rndNum === exclude) \{\
+        return generateRandomBetween(min, max, exclude);\
+    \} else \{\
+        return rndNum;\
+    \}\
+\}\
+\
+let minBoundary = 1;\
+let maxBoundary = 100;\
+\
+function GameScreen(\{userNumber, onGameOver\}) \{\
+    const initialGuess = generateRandomBetween(1, 100, userNumber);\
+    const [currentGuess, setCurrentGuess] = useState(initialGuess);\
+\
+    useEffect( () => \{\
+        if (currentGuess === userNumber) \{\
+            onGameOver();\
+        \}\
+    \}, [currentGuess, userNumber, onGameOver]);\
+\
+    function nextGuessHandler(direction) \{  //'lower' or 'greater'\
+        if ((direction === 'lower' && currentGuess<userNumber) ||\
+            (direction === 'greater' && currentGuess>userNumber)) \{\
+            Alert.alert(\
+                "Yanl\uc0\u305 \u351  Geri Bildirim!", \
+                'Hatal\uc0\u305  y\'f6nlendirme yapt\u305 n\u305 z..',\
+                [\{text: '\'dczg\'fcn\'fcm', style: 'cancel'\}]\
+            );\
+            //return;\
+        \}\
+\
+        if (direction === 'lower') \{\
+            maxBoundary = currentGuess;\
+        \} else \{\
+            minBoundary = currentGuess + 1;\
+        \}\
+        const newRndNumber = generateRandomBetween(\
+            minBoundary, \
+            maxBoundary, \
+            currentGuess\
+            );\
+        setCurrentGuess(newRndNumber);\
+    \}\
+\
+    return (\
+        <View style=\{styles.screen\}>\
+            <Title>Rakibin Tahmini</Title>\
+            <NumberContainer>\{currentGuess\}</NumberContainer>\
+            <Card>\
+                <InstructionText style=\{styles.instructionText\}>Y\'fckselt veya Azalt</InstructionText>\
+                <View style=\{styles.buttonsContainer\}>\
+                    <View style=\{styles.buttonContainer\}>\
+                        <PrimaryButton onPress=\{nextGuessHandler.bind(this, 'lower')\}>\
+						
+\f1\b <Ionicons name=\'93md-remove\'94 size=\{24\} color=\'93white\'94/>
+\f0\b0 \
+					</PrimaryButton>\
+                    </View>\
+                    <View style=\{styles.buttonContainer\}>\
+                    	<PrimaryButton onPress=\{nextGuessHandler.bind(this, 'greater')\}>\
+						
+\f1\b <Ionicons name=\'93md-add\'94 size=\{24\} color=\'93white\'94/>
+\f0\b0 \
+					</PrimaryButton>\
+                    </View>\
+                </View>\
+            </Card>\
+            \{/* <View>OYUN KAYDI</View> */\}\
+        </View>\
+    );\
+\}\
+\
+export default GameScreen;\
+\
+const styles = StyleSheet.create(\{\
+    screen: \{\
+        flex: 1,\
+        padding: 24\
+    \},\
+    instructionText: \{\
+        marginBottom: 12\
+    \},\
+    buttonsContainer: \{\
+        flexDirection: 'row'\
+    \},\
+    buttonContainer: \{\
+        flex: 1\
+    \}\
+\});\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf18 Adding and Using Custom Fonts\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b0 \cf18 \
+Load custom fonts at the root of the app\
+Go to App.js\
+Install an additional package: 
+\f1\b expo install expo-font
+\f0\b0 \
+Under assets folder add a new folder named 
+\f1\b fonts
+\f0\b0 \
+Go to https://github.com/academind/react-native-practical-guide-code/tree/04-deep-dive-real-app/extra-files/fonts and download two font files\
+OpenSans bold and regular under fonts folder\
+\
+import \{ StyleSheet, ImageBackground, SafeAreaView \} from 'react-native';\
+import \{ useState \} from 'react';\
+import StartGameScreen from './screens/StartGameScreen';\
+import GameScreen from './screens/GameScreen';\
+import GameOverScreen from './screens/GameOverScreen';\
+import \{ LinearGradient \} from 'expo-linear-gradient';\
+import Colors from './constants/Colors';\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf18 import \{ useFonts \} from \'91expo-font\'92;\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b0 \cf18 \
+export default function App() \{\
+\
+  const [userNumber, setUserNumber] = useState();\
+  const [gameIsOver, setGameIsOver] = useState(true);\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf18   useFonts(\{\
+	\'91open-sans\'92: require(\'91./assets/fonts/OpenSans-Regular.ttf\'92),\
+	\'91open-sans-bold\'92: require(\'91./assets/fonts/OpenSans-Bold.ttf\'92),\
+  \});\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b0 \cf18 \
+  function pickedNumberHandler(pickedNumber) \{\
+    setUserNumber(pickedNumber);\
+    setGameIsOver(false);\
+  \}\
+\
+  function gameOverHandler() \{\
+    setGameIsOver(true);\
+  \}\
+\
+  let screen = <StartGameScreen onPickNumber=\{pickedNumberHandler\}/>\
+\
+  if (userNumber) \{\
+    screen = <GameScreen userNumber=\{userNumber\} onGameOver=\{gameOverHandler\}/>\
+  \}\
+\
+  if (gameIsOver && userNumber) \{\
+    screen = <GameOverScreen />\
+  \}\
+\
+  return (\
+    <LinearGradient colors=\{[Colors.primary700, Colors.accent500]\} style=\{styles.rootScreen\}>\
+      <ImageBackground\
+        source=\{require('./assets/images/background.jpg')\}\
+        resizeMode="cover"\
+        style=\{styles.rootScreen\}\
+        imageStyle=\{styles.backgroundImage\}\
+      >\
+        <SafeAreaView style=\{styles.rootScreen\}>\
+          \{screen\}\
+        </SafeAreaView>\
+      </ImageBackground>\
+    </LinearGradient>\
+  );\
+\}\
+\
+const styles = StyleSheet.create(\{\
+  rootScreen: \{\
+    flex: 1,\
+  \},\
+  backgroundImage: \{\
+    opacity: 0.15\
+  \}\
+\});\
+\
+This loads the font packages. While the fonts are loaded we can show a loading screen.\
+Install a new package: 
+\f1\b expo install expo-app-loading\
+\
+
+\f0\b0 import \{ StyleSheet, ImageBackground, SafeAreaView \} from 'react-native';\
+import \{ useState \} from 'react';\
+import StartGameScreen from './screens/StartGameScreen';\
+import GameScreen from './screens/GameScreen';\
+import GameOverScreen from './screens/GameOverScreen';\
+import \{ LinearGradient \} from 'expo-linear-gradient';\
+import Colors from './constants/Colors';\
+import \{ useFonts \} from \'91expo-font\'92;\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf18 import AppLoading from \'91expo-app-loading\'92;\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b0 \cf18 \
+export default function App() \{\
+\
+  const [userNumber, setUserNumber] = useState();\
+  const [gameIsOver, setGameIsOver] = useState(true);\
+\
+  
+\f1\b const [fontsLoaded] = 
+\f0\b0 useFonts(\{\
+	\'91open-sans\'92: require(\'91./assets/fonts/OpenSans-Regular.ttf\'92),\
+	\'91open-sans-bold\'92: require(\'91./assets/fonts/OpenSans-Bold.ttf\'92),\
+  \});\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf18   if (!fontsLoaded) \{\
+	return <AppLoading />;\
+  \}
+\f0\b0 \
+\
+  function pickedNumberHandler(pickedNumber) \{\
+    setUserNumber(pickedNumber);\
+    setGameIsOver(false);\
+  \}\
+\
+  function gameOverHandler() \{\
+    setGameIsOver(true);\
+  \}\
+\
+  let screen = <StartGameScreen onPickNumber=\{pickedNumberHandler\}/>\
+\
+  if (userNumber) \{\
+    screen = <GameScreen userNumber=\{userNumber\} onGameOver=\{gameOverHandler\}/>\
+  \}\
+\
+  if (gameIsOver && userNumber) \{\
+    screen = <GameOverScreen />\
+  \}\
+\
+  return (\
+    <LinearGradient colors=\{[Colors.primary700, Colors.accent500]\} style=\{styles.rootScreen\}>\
+      <ImageBackground\
+        source=\{require('./assets/images/background.jpg')\}\
+        resizeMode="cover"\
+        style=\{styles.rootScreen\}\
+        imageStyle=\{styles.backgroundImage\}\
+      >\
+        <SafeAreaView style=\{styles.rootScreen\}>\
+          \{screen\}\
+        </SafeAreaView>\
+      </ImageBackground>\
+    </LinearGradient>\
+  );\
+\}\
+\
+const styles = StyleSheet.create(\{\
+  rootScreen: \{\
+    flex: 1,\
+  \},\
+  backgroundImage: \{\
+    opacity: 0.15\
+  \}\
+\});\
+\
+We will use custom fonts in Title, InstructionText, and NumberContainer\
+\
+Go to Title.js\
+\
+import \{Text, StyleSheet\} from 'react-native';\
+\
+function Title(\{children\}) \{\
+    return <Text style=\{styles.title\}>\{children\}</Text>\
+\}\
+\
+export default Title;\
+\
+const styles = StyleSheet.create(\{\
+    title: \{\
+	   
+\f1\b fontFamily: \'91open-sans-bold\'92,	//already bold
+\f0\b0 \
+        fontSize: 24,\
+        
+\f1\b //fontWeight: 'bold',
+\f0\b0 \
+        color: 'white',\
+        textAlign: 'center',\
+        borderWidth: 2,\
+        borderColor: 'white',\
+        padding: 12\
+    \}\
+\});\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural\partightenfactor0
+
+\fs22 \cf18 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+Go to InstructionText.js\
+\
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf18 \expnd0\expndtw0\kerning0
+\CocoaLigature1 import \{Text, StyleSheet\} from 'react-native';\
+import Colors from '../../constants/Colors';\
+\
+function InstructionText(\{children, style\}) \{\
+    return <Text style=\{[styles.instructionText, style]\}>\{children\}</Text>\
+\}\
+\
+export default InstructionText;\
+\
+const styles = StyleSheet.create(\{\
+    instructionText: \{\
+	   
+\f1\b fontFamily: \'91open-sans\'92,
+\f0\b0 \
+        color: Colors.accent500,\
+        fontSize: 24,\
+    \},\
+\});\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural\partightenfactor0
+
+\fs22 \cf18 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+Go to NumberContainer.js\
+\
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf18 \expnd0\expndtw0\kerning0
+\CocoaLigature1 import \{ View, Text, StyleSheet \} from 'react-native';\
+import Colors from '../../constants/Colors';\
+\
+function NumberContainer(\{children\}) \{\
+    return (\
+        <View style=\{styles.container\}>\
+            <Text style=\{styles.numberText\}>\{children\}</Text>\
+        </View>\
+    );\
+\}\
+\
+export default NumberContainer;\
+\
+const styles = StyleSheet.create(\{\
+    container: \{\
+        borderWidth: 4,\
+        borderColor: Colors.accent500,\
+        padding: 24,\
+        margin: 24,\
+        borderRadius: 8,\
+        alignItems: 'center',\
+        justifyContent: 'center'\
+    \},\
+    numberText: \{\
+        color: Colors.accent500,\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf18 	   fontFamily: \'91open-sans-bold\'92,
+\f0\b0 \
+        fontSize: 36,\
+
+\f1\b         //fontWeight: 'bold'\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b0 \cf18     \}\
+\});\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf18 Adding a Foreground Image\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b0 \cf18 Download success.png file from https://github.com/academind/react-native-practical-guide-code/blob/04-deep-dive-real-app/extra-files/images/success.png\
+And add to assets/images/success.png\
+\
+\pard\pardeftab720\partightenfactor0
+
+\fs22 \cf18 \kerning1\expnd0\expndtw0 \CocoaLigature0 Go to GameOverScreen.js\
+\
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf18 \expnd0\expndtw0\kerning0
+\CocoaLigature1 import \{ 
+\f1\b View, Image, StyleSheet, Text
+\f0\b0  \} from "react-native";\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf18 import Title from \'91../components/ui/Title\'92;\
+import Colors from \'91../constants/colors\'92;
+\f0\b0 \
+\
+\
+function GameOverScreen() \{\
+    return 
+\f1\b (\
+	<View style=\{styles.rootContainer\}>\
+		<Title>Oyun Bitti!</Title>\
+		<View style=\{styles.imageContainer\}>\
+			<Image style=\{styles.image\} source=\{require(\'91../assets/images/success.png\'92)\} />\
+		</View>\
+		<Text>Telefonun Y\'92yi X defada bildi.</Text>\
+	</View>\
+	);
+\f0\b0 \
+\}\
+\
+export default GameOverScreen;
+\fs22 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf18 const styles = StyleSheet.create(\{\
+	rootContainer: \{\
+		flex: 1,\
+		padding: 24,\
+		justifyContent: \'91center\'92,\
+		alignItems: \'91center\'92\
+	\},\
+	imageContainer: \{\
+		width: 300,\
+		height: 300,\
+		borderRadius: 150,	//half of the width/height square becomes a circle\
+		borderWidth: 3,\
+		borderColor: Colors.primary800,\
+		overflow: \'91hidden\'92,\
+		margin: 36\
+	\},\
+	image: \{\
+		width: \'91100%\'92,\
+		height: \'91100%\'92\
+	\}\
+\});\
+\
+Using and Styling Nested Text\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b0 \cf18 \
+Text component cannot contain a view. But text component can contain another text component\
+\
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf18 \expnd0\expndtw0\kerning0
+\CocoaLigature1 import \{ View, Image, StyleSheet, Text \} from "react-native";\
+import Title from \'91../components/ui/Title\'92;\
+import Colors from \'91../constants/colors\'92;\
+\
+\
+function GameOverScreen() \{\
+    return (\
+	<View style=\{styles.rootContainer\}>\
+		<Title>Oyun Bitti!</Title>\
+		<View style=\{styles.imageContainer\}>\
+			<Image style=\{styles.image\} source=\{require(\'91../assets/images/success.png\'92)\} />\
+		</View>\
+		<Text 
+\f1\b style=\{styles.summaryText\}
+\f0\b0 >\
+			Telefonun 
+\f1\b <Text style=\{styles.highlight\}>
+\f0\b0 Y
+\f1\b </Text>\
+			
+\f0\b0 \'92yi 
+\f1\b <Text style=\{styles.highlight\}>
+\f0\b0 X
+\f1\b </Text>
+\f0\b0  defada bildi.\
+		</Text>\
+	</View>\
+	);\
+\}\
+\
+export default GameOverScreen;
+\fs22 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+\
+const styles = StyleSheet.create(\{\
+	rootContainer: \{\
+		flex: 1,\
+		padding: 24,\
+		justifyContent: \'91center\'92,\
+		alignItems: \'91center\'92\
+	\},\
+	imageContainer: \{\
+		width: 300,\
+		height: 300,\
+		borderRadius: 150,	//half of the width/height square becomes a circle\
+		borderWidth: 3,\
+		borderColor: Colors.primary800,\
+		overflow: \'91hidden\'92,\
+		margin: 36\
+	\},\
+	image: \{\
+		width: \'91100%\'92,\
+		height: \'91100%\'92\
+	\},\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf18 	summaryText: \{\
+		fontFamily: \'91open-sans\'92,\
+		fontSize: 24,\
+		textAlign: \'91center\'92\
+	\},\
+	highlight: \{\
+		fontFamily: \'91open-sans-bold\'92,\
+		color: Colors.primary500\
+	\},
+\f0\b0 \
+\});\
+\
+Add a new button to restart the game\
+\
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf18 \expnd0\expndtw0\kerning0
+\CocoaLigature1 import \{ View, Image, StyleSheet, Text \} from "react-native";\
+import Title from \'91../components/ui/Title\'92;\
+import Colors from \'91../constants/colors\'92;\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf18 import PrimaryButton from \'91../components/ui/PrimaryButton\'92;\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b0 \cf18 \
+\
+function GameOverScreen() \{\
+    return (\
+	<View style=\{styles.rootContainer\}>\
+		<Title>Oyun Bitti!</Title>\
+		<View style=\{styles.imageContainer\}>\
+			<Image style=\{styles.image\} source=\{require(\'91../assets/images/success.png\'92)\} />\
+		</View>\
+		<Text style=\{styles.summaryText\}>\
+			Telefonun <Text style=\{styles.highlight\}>Y</Text>\
+			\'92yi <Text style=\{styles.highlight\}>X</Text> defada bildi.\
+		</Text>\
+		
+\f1\b <PrimaryButton>Yeni Oyun Ba\uc0\u351 lat</PrimaryButton>
+\f0\b0 \
+	</View>\
+	);\
+\}\
+\
+export default GameOverScreen;
+\fs22 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+\
+const styles = StyleSheet.create(\{\
+	rootContainer: \{\
+		flex: 1,\
+		padding: 24,\
+		justifyContent: \'91center\'92,\
+		alignItems: \'91center\'92\
+	\},\
+	imageContainer: \{\
+		width: 300,\
+		height: 300,\
+		borderRadius: 150,	//half of the width/height square becomes a circle\
+		borderWidth: 3,\
+		borderColor: Colors.primary800,\
+		overflow: \'91hidden\'92,\
+		margin: 36\
+	\},\
+	image: \{\
+		width: \'91100%\'92,\
+		height: \'91100%\'92\
+	\},\
+	summaryText: \{\
+		fontFamily: \'91open-sans\'92,\
+		fontSize: 24,\
+		textAlign: \'91center\'92,\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf18 		marginBottom: 24\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b0 \cf18 	\},\
+	highlight: \{\
+		fontFamily: \'91open-sans-bold\'92,\
+		color: Colors.primary500\
+	\},\
+\});\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf18 Adding Logic to Restart Games and Displaying a Summary Screen\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b0 \cf18 \
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf18 \expnd0\expndtw0\kerning0
+\CocoaLigature1 Expect three props from App.js in GameOverScreen. Use object destructuring\
+\
+import \{ View, Image, StyleSheet, Text \} from "react-native";\
+import Title from \'91../components/ui/Title\'92;\
+import Colors from \'91../constants/colors\'92;\
+import PrimaryButton from \'91../components/ui/PrimaryButton\'92;\
+\
+\
+function GameOverScreen(
+\f1\b \{roundsNumber, userNumber, onStartNewGame\}
+\f0\b0 ) \{\
+    return (\
+	<View style=\{styles.rootContainer\}>\
+		<Title>Oyun Bitti!</Title>\
+		<View style=\{styles.imageContainer\}>\
+			<Image style=\{styles.image\} source=\{require(\'91../assets/images/success.png\'92)\} />\
+		</View>\
+		<Text style=\{styles.summaryText\}>\
+			Telefonun <Text style=\{styles.highlight\}>
+\f1\b \{userNumber\}
+\f0\b0 </Text>\
+			\'92yi <Text style=\{styles.highlight\}>
+\f1\b \{roundsNumber\}
+\f0\b0 </Text> defada bildi.\
+		</Text>\
+		<PrimaryButton 
+\f1\b onPress=\{onStartNewGame\}
+\f0\b0 >Yeni Oyun Ba\uc0\u351 lat</PrimaryButton>\
+	</View>\
+	);\
+\}\
+\
+export default GameOverScreen;
+\fs22 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+\'85\
+\
+\
+Go to App.js to provide the values\
+Define a new state to keep track of the number of tries\
+Define a new function to handle starting a new game\
+\
+
+\fs24 \expnd0\expndtw0\kerning0
+\CocoaLigature1 import \{ StyleSheet, ImageBackground, SafeAreaView \} from 'react-native';\
+import \{ useState \} from 'react';\
+import StartGameScreen from './screens/StartGameScreen';\
+import GameScreen from './screens/GameScreen';\
+import GameOverScreen from './screens/GameOverScreen';\
+import \{ LinearGradient \} from 'expo-linear-gradient';\
+import Colors from './constants/Colors';\
+import \{ useFonts \} from \'91expo-font\'92;\
+import AppLoading from \'91expo-app-loading\'92;\
+\
+export default function App() \{\
+\
+  const [userNumber, setUserNumber] = useState();\
+  const [gameIsOver, setGameIsOver] = useState(true);\
+  
+\f1\b const [guessRounds, setGuessRounds] = useState(0);
+\f0\b0 \
+\
+  const [fontsLoaded] = useFonts(\{\
+	\'91open-sans\'92: require(\'91./assets/fonts/OpenSans-Regular.ttf\'92),\
+	\'91open-sans-bold\'92: require(\'91./assets/fonts/OpenSans-Bold.ttf\'92),\
+  \});\
+\
+  if (!fontsLoaded) \{\
+	return <AppLoading />;\
+  \}\
+\
+  function pickedNumberHandler(pickedNumber) \{\
+    setUserNumber(pickedNumber);\
+    setGameIsOver(false);\
+  \}\
+\
+  function gameOverHandler() \{\
+    setGameIsOver(true);\
+  \}\
+\
+  
+\f1\b function startNewGameHandler() \{\
+	setUserNumber(null);\
+	setGuessRounds(0);\
+  \}
+\f0\b0 \
+\
+  let screen = <StartGameScreen onPickNumber=\{pickedNumberHandler\}/>\
+\
+  if (userNumber) \{\
+    screen = <GameScreen userNumber=\{userNumber\} onGameOver=\{gameOverHandler\}/>\
+  \}\
+\
+  if (gameIsOver && userNumber) \{\
+    screen = 
+\f1\b (
+\f0\b0 \
+	<GameOverScreen \
+		
+\f1\b userNumber=\{userNumber\} \
+		roundsNumber=\{guessRounds\} \
+		onStartNewGame=\{startNewGameHandler\}\
+	
+\f0\b0 />\
+    
+\f1\b );
+\f0\b0 \
+  \}\
+\
+  return (\
+    <LinearGradient colors=\{[Colors.primary700, Colors.accent500]\} style=\{styles.rootScreen\}>\
+      <ImageBackground\
+        source=\{require('./assets/images/background.jpg')\}\
+        resizeMode="cover"\
+        style=\{styles.rootScreen\}\
+        imageStyle=\{styles.backgroundImage\}\
+      >\
+        <SafeAreaView style=\{styles.rootScreen\}>\
+          \{screen\}\
+        </SafeAreaView>\
+      </ImageBackground>\
+    </LinearGradient>\
+  );\
+\}\
+\
+const styles = StyleSheet.create(\{\
+  rootScreen: \{\
+    flex: 1,\
+  \},\
+  backgroundImage: \{\
+    opacity: 0.15\
+  \}\
+\});\
+\
+\pard\pardeftab720\partightenfactor0
+
+\fs22 \cf18 \kerning1\expnd0\expndtw0 \CocoaLigature0 Set minBoundary and maxBoundary their initial values using useEffect in GameScreen\
+Whenever GameScreen component is rendered again, reset these values\
+\
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf18 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \'85\
+\
+let minBoundary = 1;\
+let maxBoundary = 100;\
+\
+function GameScreen(\{userNumber, onGameOver\}) \{\
+    const initialGuess = generateRandomBetween(1, 100, userNumber);\
+    const [currentGuess, setCurrentGuess] = useState(initialGuess);\
+\
+    useEffect( () => \{\
+        if (currentGuess === userNumber) \{\
+            onGameOver();\
+        \}\
+    \}, [currentGuess, userNumber, onGameOver]);\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf18     useEffect(() => \{\
+	minBoundary = 1;\
+	maxBoundary = 100;\
+    \}, []);	//using an empty array causes this effect to be triggered only when the component is rendered again
+\f0\b0 \
+\
+    function nextGuessHandler(direction) \{  //'lower' or 'greater'\
+        if ((direction === 'lower' && currentGuess<userNumber) ||\
+            (direction === 'greater' && currentGuess>userNumber)) \{\
+            Alert.alert(\
+                "Yanl\uc0\u305 \u351  Geri Bildirim!", \
+                'Hatal\uc0\u305  y\'f6nlendirme yapt\u305 n\u305 z..',\
+                [\{text: '\'dczg\'fcn\'fcm', style: 'cancel'\}]\
+            );\
+            //return;\
+        \}\
+\
+        if (direction === 'lower') \{\
+            maxBoundary = currentGuess;\
+        \} else \{\
+            minBoundary = currentGuess + 1;\
+        \}\
+        const newRndNumber = generateRandomBetween(\
+            minBoundary, \
+            maxBoundary, \
+            currentGuess\
+            );\
+        setCurrentGuess(newRndNumber);\
+    \}\
+\
+    return (\
+        <View style=\{styles.screen\}>\
+            <Title>Rakibin Tahmini</Title>\
+            <NumberContainer>\{currentGuess\}</NumberContainer>\
+            <Card>\
+                <InstructionText style=\{styles.instructionText\}>Y\'fckselt veya Azalt</InstructionText>\
+                <View style=\{styles.buttonsContainer\}>\
+                    <View style=\{styles.buttonContainer\}>\
+                        <PrimaryButton onPress=\{nextGuessHandler.bind(this, 'lower')\}>\
+						<Ionicons name=\'93md-remove\'94 size=\{24\} color=\'93white\'94/>\
+					</PrimaryButton>\
+                    </View>\
+                    <View style=\{styles.buttonContainer\}>\
+                    	<PrimaryButton onPress=\{nextGuessHandler.bind(this, 'greater')\}>\
+						<Ionicons name=\'93md-add\'94 size=\{24\} color=\'93white\'94/>\
+					</PrimaryButton>\
+                    </View>\
+                </View>\
+            </Card>\
+            \{/* <View>OYUN KAYDI</View> */\}\
+        </View>\
+    );\
+\}\
+\
+\'85\
+\
+
+\f1\b Logging Game Rounds\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b0 \cf18 \
+Add a new state to the GameScreen for logs (guessed numbers)\
+\
+\'85\
+\
+let minBoundary = 1;\
+let maxBoundary = 100;\
+\
+function GameScreen(\{userNumber, onGameOver\}) \{\
+    const initialGuess = generateRandomBetween(1, 100, userNumber);\
+    const [currentGuess, setCurrentGuess] = useState(initialGuess);\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf18     const [guessRounds, setGuessRounds] = useState([initialGuess]);
+\f0\b0 //the first element of the array is the initial guess\
+\
+    useEffect( () => \{\
+        if (currentGuess === userNumber) \{\
+            onGameOver();\
+        \}\
+    \}, [currentGuess, userNumber, onGameOver]);\
+\
+    useEffect(() => \{\
+	minBoundary = 1;\
+	maxBoundary = 100;\
+    \}, []);	//using an empty array causes this effect to be triggered only when the component is rendered again\
+\
+    function nextGuessHandler(direction) \{  //'lower' or 'greater'\
+        if ((direction === 'lower' && currentGuess<userNumber) ||\
+            (direction === 'greater' && currentGuess>userNumber)) \{\
+            Alert.alert(\
+                "Yanl\uc0\u305 \u351  Geri Bildirim!", \
+                'Hatal\uc0\u305  y\'f6nlendirme yapt\u305 n\u305 z..',\
+                [\{text: '\'dczg\'fcn\'fcm', style: 'cancel'\}]\
+            );\
+            //return;\
+        \}\
+\
+        if (direction === 'lower') \{\
+            maxBoundary = currentGuess;\
+        \} else \{\
+            minBoundary = currentGuess + 1;\
+        \}\
+        const newRndNumber = generateRandomBetween(\
+            minBoundary, \
+            maxBoundary, \
+            currentGuess\
+            );\
+        setCurrentGuess(newRndNumber);\
+	   
+\f1\b setGuessRounds(prevGuessRounds => [newRndNumber, \'85prevGuessRounds]);
+\f0\b0 //Get the snapshot of the guess rounds array (prevGuessRounds) and then add the new element (newRndNumber)\
+    \}\
+\
+    return (\
+        <View style=\{styles.screen\}>\
+            <Title>Rakibin Tahmini</Title>\
+            <NumberContainer>\{currentGuess\}</NumberContainer>\
+            <Card>\
+                <InstructionText style=\{styles.instructionText\}>Y\'fckselt veya Azalt</InstructionText>\
+                <View style=\{styles.buttonsContainer\}>\
+                    <View style=\{styles.buttonContainer\}>\
+                        <PrimaryButton onPress=\{nextGuessHandler.bind(this, 'lower')\}>\
+						<Ionicons name=\'93md-remove\'94 size=\{24\} color=\'93white\'94/>\
+					</PrimaryButton>\
+                    </View>\
+                    <View style=\{styles.buttonContainer\}>\
+                    	<PrimaryButton onPress=\{nextGuessHandler.bind(this, 'greater')\}>\
+						<Ionicons name=\'93md-add\'94 size=\{24\} color=\'93white\'94/>\
+					</PrimaryButton>\
+                    </View>\
+                </View>\
+            </Card>\
+            
+\f1\b <View>\
+			\{guessRounds.map(guessRound => <Text key=\{guessRound\}>\{guessRound\}</Text>)\} 
+\f0\b0 //dont forget to import Text. If key is not added, there will be an error for a unique key
+\f1\b \
+		  </View>
+\f0\b0 \
+        </View>\
+    );\
+\}\
+\
+\'85\
+\
+Save and test\
+When the list has many elements it is better to use FlatList\
+\
+
+\f1\b Outputting Log Dat with FlatList\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b0 \cf18 \
+Import FlatList and use it\
+\
+\'85\
+import \{View, StyleSheet, Alert, Text, 
+\f1\b FlatList
+\f0\b0 \} from 'react-native';\
+\'85\
+\
+let minBoundary = 1;\
+let maxBoundary = 100;\
+\
+function GameScreen(\{userNumber, onGameOver\}) \{\
+    const initialGuess = generateRandomBetween(1, 100, userNumber);\
+    const [currentGuess, setCurrentGuess] = useState(initialGuess);\
+    const [guessRounds, setGuessRounds] = useState([initialGuess]);//the first element of the array is the initial guess\
+\
+    useEffect( () => \{\
+        if (currentGuess === userNumber) \{\
+            onGameOver();\
+        \}\
+    \}, [currentGuess, userNumber, onGameOver]);\
+\
+    useEffect(() => \{\
+	minBoundary = 1;\
+	maxBoundary = 100;\
+    \}, []);	//using an empty array causes this effect to be triggered only when the component is rendered again\
+\
+    function nextGuessHandler(direction) \{  //'lower' or 'greater'\
+        if ((direction === 'lower' && currentGuess<userNumber) ||\
+            (direction === 'greater' && currentGuess>userNumber)) \{\
+            Alert.alert(\
+                "Yanl\uc0\u305 \u351  Geri Bildirim!", \
+                'Hatal\uc0\u305  y\'f6nlendirme yapt\u305 n\u305 z..',\
+                [\{text: '\'dczg\'fcn\'fcm', style: 'cancel'\}]\
+            );\
+            //return;\
+        \}\
+\
+        if (direction === 'lower') \{\
+            maxBoundary = currentGuess;\
+        \} else \{\
+            minBoundary = currentGuess + 1;\
+        \}\
+        const newRndNumber = generateRandomBetween(\
+            minBoundary, \
+            maxBoundary, \
+            currentGuess\
+            );\
+        setCurrentGuess(newRndNumber);\
+	   setGuessRounds(prevGuessRounds => [newRndNumber, \'85prevGuessRounds]);//Get the snapshot of the guess rounds array (prevGuessRounds) and then add the new element (newRndNumber)\
+    \}\
+\
+    return (\
+        <View style=\{styles.screen\}>\
+            <Title>Rakibin Tahmini</Title>\
+            <NumberContainer>\{currentGuess\}</NumberContainer>\
+            <Card>\
+                <InstructionText style=\{styles.instructionText\}>Y\'fckselt veya Azalt</InstructionText>\
+                <View style=\{styles.buttonsContainer\}>\
+                    <View style=\{styles.buttonContainer\}>\
+                        <PrimaryButton onPress=\{nextGuessHandler.bind(this, 'lower')\}>\
+						<Ionicons name=\'93md-remove\'94 size=\{24\} color=\'93white\'94/>\
+					</PrimaryButton>\
+                    </View>\
+                    <View style=\{styles.buttonContainer\}>\
+                    	<PrimaryButton onPress=\{nextGuessHandler.bind(this, 'greater')\}>\
+						<Ionicons name=\'93md-add\'94 size=\{24\} color=\'93white\'94/>\
+					</PrimaryButton>\
+                    </View>\
+                </View>\
+            </Card>\
+            <View>\
+			\{/*guessRounds.map(guessRound => <Text key=\{guessRound\}>\{guessRound\}</Text>)*/\} //dont forget to import Text. If key is not added, there will be an error for a unique key\
+			
+\f1\b <FlatList\
+				data=\{guessRounds\}\
+				renderItem=\{(itemData) => <Text>\{itemData.item\}</Text>\}\
+				keyExtractor=\{(item) => item\}\
+			/>
+\f0\b0 \
+		  </View>\
+        </View>\
+    );\
+\}\
+\
+\'85\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf18 Styling the Game Round Logs\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b0 \cf18 \
+Create a new component named GuessLogItem.js under components/game folder\
+In the new file..\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf18 import \{View, Text, StyleSheet\} from \'91react-native\'92;\
+\
+function GuessLogItem(\{roundNumber, guess\}) \{\
+	return (\
+		<View style=\{styles.listItem\}>\
+			<Text style=\{styles.itemText\}>#\{roundNumber\}</Text>\
+			<Text style=\{styles.itemText\}>Rakibin Tahmini: \{guess\}</Text>\
+		</View>\
+	);\
+\}\
+\
+export default GuessLogItem;\
+\
+const styles = StyleSheet.create(\{\
+	listItem: \{\
+		borderColor: Colors.primary800,\
+		borderWidth: 1,\
+		borderRadius: 40,\
+		padding: 12,\
+		marginVertical: 8,\
+		backgroundColor: Colors.accent500,\
+		flexDirection: \'91row\'92,\
+		justifyContent: \'91space-between\'92,\
+		width: \'91100%\'92,\
+		elevation: 4,\
+		shadowColor: \'91black\'92,\
+		shadowOffset: \{width: 0, height: 0\},\
+		shadowOpacity: 0.25,\
+		shadowRadius: 3,\
+	\},\
+	itemText: \{\
+		fontFamily: \'91open-sans\'92\
+	\}\
+\});
+\f0\b0 \
+\
+Now we can use GuessLogItem in GameScreen.js\
+Go to GameScreen.js\
+\
+\'85\
+        setCurrentGuess(newRndNumber);\
+	   setGuessRounds(prevGuessRounds => [newRndNumber, \'85prevGuessRounds]);//Get the snapshot of the guess rounds array (prevGuessRounds) and then add the new element (newRndNumber)\
+    \}\
+\
+
+\f1\b 	const guessRoundsListLength = guessRounds.length;\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b0 \cf18 \
+    return (\
+        <View style=\{styles.screen\}>\
+            <Title>Rakibin Tahmini</Title>\
+            <NumberContainer>\{currentGuess\}</NumberContainer>\
+            <Card>\
+\'85\
+\
+		<View>\
+			<FlatList\
+				data=\{guessRounds\}\
+				renderItem=\{(itemData) => 
+\f1\b (
+\f0\b0 \
+					
+\f1\b <GuessLogItem \
+					roundNumber=\{guessRoundsListLength - itemData.index\} 						guess=\{itemData.item\}\
+					/>\
+				)
+\f0\b0 \}\
+				keyExtractor=\{(item) => item\}\
+			/>\
+		</View>\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf18 Finishing Touches\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b0 \cf18 Fix the scrollable list by restricting the height of the parent container\
+Add a list container style object in GameScreen.js\
+\
+..\
+\}
+\f1\b ,\
+listContainer: \{\
+	flex: 1\
+	padding: 16\
+\}
+\f0\b0 \
+\});\
+\
+Set the style to the parent container\
+\
+\pard\pardeftab720\partightenfactor0
+\cf18 		<View 
+\f1\b style=\{styles.listContainer\}
+\f0\b0 >\
+			<FlatList\
+				data=\{guessRounds\}\
+				renderItem=\{(itemData) => (\
+					<GuessLogItem \
+					roundNumber=\{guessRoundsListLength - itemData.index\} 						guess=\{itemData.item\}\
+					/>\
+				)\}\
+				keyExtractor=\{(item) => item\}\
+			/>\
+		</View>\
+\
+Show count in the game over screen. \
+We already log all rounds (guessRounds) in the game screen. We need to pass this number to App.js so that it can pass the number to the GameOverScreen\
+\
+In App.js\
+\
+function gameOverHandler(
+\f1\b numberOfRounds
+\f0\b0 ) \{\
+	setGameIsOver(true);\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf18 	setGuessRounds(numberOfRounds);\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b0 \cf18 \}\
+\
+In GameScreen.js pass the length of the guessRounds onGameOver\
+This passes the value to the \
+\
+\pard\pardeftab720\partightenfactor0
+\cf18     useEffect( () => \{\
+        if (currentGuess === userNumber) \{\
+            onGameOver(
+\f1\b guessRounds.length
+\f0\b0 );\
+        \}}
